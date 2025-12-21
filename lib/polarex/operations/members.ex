@@ -21,7 +21,7 @@ defmodule Polarex.Members do
   """
   @spec members_create_member(body :: Polarex.MemberCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Member.t()}
-          | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
+          | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t() | String.t()}
   def members_create_member(body, opts \\ []) do
     client = opts[:client] || @default_client
 

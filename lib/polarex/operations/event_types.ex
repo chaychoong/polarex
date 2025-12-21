@@ -70,7 +70,7 @@ defmodule Polarex.EventTypes do
   **Content Types**: `application/json`
   """
   @spec event_types_update(id :: String.t(), body :: Polarex.EventTypeUpdate.t(), opts :: keyword) ::
-          {:ok, Polarex.EventType.t()} | {:error, Polarex.HTTPValidationError.t()}
+          {:ok, Polarex.EventType.t()} | {:error, Polarex.HTTPValidationError.t() | String.t()}
   def event_types_update(id, body, opts \\ []) do
     client = opts[:client] || @default_client
 

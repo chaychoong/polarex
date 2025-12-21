@@ -9,7 +9,10 @@ if Mix.env() == :dev do
         default_client: Polarex.Support.Client,
         location: "lib/polarex",
         operation_subdirectory: "/operations/",
-        schema_subdirectory: "/schemas/"
+        schema_subdirectory: "/schemas/",
+        types: [
+          error_fallback: {:string, :generic}
+        ]
       ]
     ]
 end

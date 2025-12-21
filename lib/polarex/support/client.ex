@@ -15,15 +15,24 @@ defmodule Polarex.Support.Client do
         result_type = Map.get(lookup, status)
         {:ok, Translator.translate(result_type, body)}
 
-      {:ok, %{body: %{"message" => message}}} ->
-        {:error, message}
+      # Error: 3xx+ - look up error type and translate if mapped
+      {:ok, %{status: status, body: body}} ->
+        lookup = Map.new(opts.response)
 
-      {:ok, %{status: status}} ->
-        reason = "HTTP response status: #{inspect(status)}"
-        {:error, reason}
+        case Map.get(lookup, status) do
+          nil ->
+            {:error, extract_message(body) || "HTTP error #{status}"}
 
+          :null ->
+            {:error, extract_message(body) || "HTTP error #{status}"}
+
+          error_type ->
+            {:error, Translator.translate(error_type, body)}
+        end
+
+      # Network/request error
       {:error, %{reason: reason}} ->
-        {:error, reason}
+        {:error, to_string(reason)}
     end
   end
 
@@ -113,4 +122,9 @@ defmodule Polarex.Support.Client do
     |> Req.merge(headers: headers)
     |> Req.merge(headers: headers_overrides)
   end
+
+  defp extract_message(nil), do: nil
+  defp extract_message(%{"message" => message}), do: message
+  defp extract_message(%{"detail" => detail}) when is_binary(detail), do: detail
+  defp extract_message(_), do: nil
 end

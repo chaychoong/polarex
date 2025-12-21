@@ -53,7 +53,7 @@ defmodule Polarex.MixProject do
   defp deps do
     [
       {:req, "~> 0.5"},
-      {:oapi_generator, "~> 0.4.0", only: :dev, runtime: false},
+      {:oapi_generator, github: "chaychoong/open-api-generator", branch: "fix/add-error-fallback", only: :dev, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end

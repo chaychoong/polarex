@@ -15,7 +15,7 @@ defmodule Polarex.Seats do
   **Content Types**: `application/json`
   """
   @spec customer_portal_seats_assign_seat(body :: Polarex.SeatAssign.t(), opts :: keyword) ::
-          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
+          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t() | String.t()}
   def customer_portal_seats_assign_seat(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,7 +46,7 @@ defmodule Polarex.Seats do
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
   @spec customer_portal_seats_list_claimed_subscriptions(opts :: keyword) ::
-          {:ok, [Polarex.CustomerSubscription.t()]} | :error
+          {:ok, [Polarex.CustomerSubscription.t()]} | {:error, String.t()}
   def customer_portal_seats_list_claimed_subscriptions(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -72,7 +72,7 @@ defmodule Polarex.Seats do
 
   """
   @spec customer_portal_seats_list_seats(opts :: keyword) ::
-          {:ok, Polarex.SeatsList.t()} | {:error, Polarex.HTTPValidationError.t()}
+          {:ok, Polarex.SeatsList.t()} | {:error, Polarex.HTTPValidationError.t() | String.t()}
   def customer_portal_seats_list_seats(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:order_id, :subscription_id])
@@ -100,7 +100,7 @@ defmodule Polarex.Seats do
   **Scopes**: `customer_portal:write`
   """
   @spec customer_portal_seats_resend_invitation(seat_id :: String.t(), opts :: keyword) ::
-          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
+          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t() | String.t()}
   def customer_portal_seats_resend_invitation(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -127,7 +127,7 @@ defmodule Polarex.Seats do
   **Scopes**: `customer_portal:write`
   """
   @spec customer_portal_seats_revoke_seat(seat_id :: String.t(), opts :: keyword) ::
-          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
+          {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t() | String.t()}
   def customer_portal_seats_revoke_seat(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
 
