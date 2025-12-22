@@ -8,11 +8,20 @@ defmodule Polarex.Support.Translator do
   def translate(nil, body), do: body
   def translate(:map, body), do: body
   def translate([:map], body), do: body
-  def translate({:string, :generic}, body), do: body
   def translate(:boolean, body), do: body
+  def translate(:string, body), do: body
+  def translate(:number, body), do: body
+  def translate(:null, _body), do: nil
   def translate(:integer, body) when is_binary(body), do: String.to_integer(body)
   def translate(:integer, body), do: body
-  def translate({:string, :date_time}, body), do: NaiveDateTime.from_iso8601!(body)
+
+  # String format conversions
+  def translate({:string, "date-time"}, body), do: NaiveDateTime.from_iso8601!(body)
+  def translate({:string, "date"}, body), do: Date.from_iso8601!(body)
+
+  # Pass-through for validation-only string formats
+  def translate({:string, format}, body) when is_binary(format), do: body
+
   def translate({:const, value}, _body), do: value
 
   def translate({:enum, _values}, body), do: body
