@@ -11,10 +11,14 @@ defmodule Polarex.Customers do
   Add a payment method to the authenticated customer.
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_customers_add_payment_method(
-          Polarex.CustomerPaymentMethodCreate.t(),
-          keyword
+          body :: Polarex.CustomerPaymentMethodCreate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerPaymentMethodCreateRequiresActionResponse.t()
@@ -49,10 +53,14 @@ defmodule Polarex.Customers do
   Confirm a payment method for the authenticated customer.
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_customers_confirm_payment_method(
-          Polarex.CustomerPaymentMethodConfirm.t(),
-          keyword
+          body :: Polarex.CustomerPaymentMethodConfirm.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerPaymentMethodCreateRequiresActionResponse.t()
@@ -89,7 +97,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customers_delete_payment_method(String.t(), keyword) ::
+  @spec customer_portal_customers_delete_payment_method(id :: String.t(), opts :: keyword) ::
           :ok
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -120,7 +128,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customers_get(keyword) ::
+  @spec customer_portal_customers_get(opts :: keyword) ::
           {:ok, Polarex.CustomerPortalCustomer.t()} | :error
   def customer_portal_customers_get(opts \\ []) do
     client = opts[:client] || @default_client
@@ -148,7 +156,7 @@ defmodule Polarex.Customers do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec customer_portal_customers_list_payment_methods(keyword) ::
+  @spec customer_portal_customers_list_payment_methods(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerPaymentMethod.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_customers_list_payment_methods(opts \\ []) do
@@ -175,9 +183,15 @@ defmodule Polarex.Customers do
   Update authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_customers_update(Polarex.CustomerPortalCustomerUpdate.t(), keyword) ::
-          {:ok, Polarex.CustomerPortalCustomer.t()} | {:error, Polarex.HTTPValidationError.t()}
+  @spec customer_portal_customers_update(
+          body :: Polarex.CustomerPortalCustomerUpdate.t(),
+          opts :: keyword
+        ) :: {:ok, Polarex.CustomerPortalCustomer.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_customers_update(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -203,16 +217,14 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_create(Polarex.CustomerCreate.t(), keyword) ::
+  @spec customers_create(body :: Polarex.CustomerCreate.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customers_create(body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [body: body],
@@ -220,7 +232,6 @@ defmodule Polarex.Customers do
       url: "/v1/customers/",
       body: body,
       method: :post,
-      query: query,
       request: [{"application/json", {Polarex.CustomerCreate, :t}}],
       response: [
         {201, {Polarex.CustomerWithMembers, :t}},
@@ -249,7 +260,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:write`
   """
-  @spec customers_delete(String.t(), keyword) ::
+  @spec customers_delete(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_delete(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -277,7 +288,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:write`
   """
-  @spec customers_delete_external(String.t(), keyword) ::
+  @spec customers_delete_external(external_id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_delete_external(external_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -308,7 +319,8 @@ defmodule Polarex.Customers do
     * `organization_id`: Filter by organization ID.
 
   """
-  @spec customers_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec customers_export(opts :: keyword) ::
+          {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def customers_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id])
@@ -330,25 +342,18 @@ defmodule Polarex.Customers do
   Get a customer by ID.
 
   **Scopes**: `customers:read` `customers:write`
-
-  ## Options
-
-    * `include_members`: Include members in the response. Only populated when set to true.
-
   """
-  @spec customers_get(String.t(), keyword) ::
+  @spec customers_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get(id, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [id: id],
       call: {Polarex.Customers, :customers_get},
       url: "/v1/customers/#{id}",
       method: :get,
-      query: query,
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
         {404, {Polarex.ResourceNotFound, :t}},
@@ -364,25 +369,18 @@ defmodule Polarex.Customers do
   Get a customer by external ID.
 
   **Scopes**: `customers:read` `customers:write`
-
-  ## Options
-
-    * `include_members`: Include members in the response. Only populated when set to true.
-
   """
-  @spec customers_get_external(String.t(), keyword) ::
+  @spec customers_get_external(external_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_external(external_id, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [external_id: external_id],
       call: {Polarex.Customers, :customers_get_external},
       url: "/v1/customers/external/#{external_id}",
       method: :get,
-      query: query,
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
         {404, {Polarex.ResourceNotFound, :t}},
@@ -405,7 +403,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:read` `customers:write`
   """
-  @spec customers_get_state(String.t(), keyword) ::
+  @spec customers_get_state(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerState.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_state(id, opts \\ []) do
@@ -438,7 +436,7 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:read` `customers:write`
   """
-  @spec customers_get_state_external(String.t(), keyword) ::
+  @spec customers_get_state_external(external_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerState.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_state_external(external_id, opts \\ []) do
@@ -470,30 +468,20 @@ defmodule Polarex.Customers do
     * `organization_id`: Filter by organization ID.
     * `email`: Filter by exact email.
     * `query`: Filter by name, email, or external ID.
-    * `include_members`: Include members in the response. Only populated when set to true.
     * `page`: Page number, defaults to 1.
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec customers_list(keyword) ::
+  @spec customers_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customers_list(opts \\ []) do
     client = opts[:client] || @default_client
 
     query =
-      Keyword.take(opts, [
-        :email,
-        :include_members,
-        :limit,
-        :metadata,
-        :organization_id,
-        :page,
-        :query,
-        :sorting
-      ])
+      Keyword.take(opts, [:email, :limit, :metadata, :organization_id, :page, :query, :sorting])
 
     client.request(%{
       args: [],
@@ -516,17 +504,15 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_update(String.t(), Polarex.CustomerUpdate.t(), keyword) ::
+  @spec customers_update(id :: String.t(), body :: Polarex.CustomerUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_update(id, body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [id: id, body: body],
@@ -534,7 +520,6 @@ defmodule Polarex.Customers do
       url: "/v1/customers/#{id}",
       body: body,
       method: :patch,
-      query: query,
       request: [{"application/json", {Polarex.CustomerUpdate, :t}}],
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
@@ -552,17 +537,19 @@ defmodule Polarex.Customers do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_update_external(String.t(), Polarex.CustomerUpdateExternalID.t(), keyword) ::
+  @spec customers_update_external(
+          external_id :: String.t(),
+          body :: Polarex.CustomerUpdateExternalID.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_update_external(external_id, body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [external_id: external_id, body: body],
@@ -570,7 +557,6 @@ defmodule Polarex.Customers do
       url: "/v1/customers/external/#{external_id}",
       body: body,
       method: :patch,
-      query: query,
       request: [{"application/json", {Polarex.CustomerUpdateExternalID, :t}}],
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},

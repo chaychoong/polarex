@@ -11,7 +11,7 @@ defmodule Polarex.CheckoutLink do
           discount_id: String.t() | nil,
           id: String.t(),
           label: String.t() | nil,
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           modified_at: DateTime.t() | nil,
           organization_id: String.t(),
           payment_processor: String.t(),
@@ -50,22 +50,22 @@ defmodule Polarex.CheckoutLink do
   def __fields__(:t) do
     [
       allow_discount_codes: :boolean,
-      client_secret: {:string, :generic},
-      created_at: {:string, :date_time},
+      client_secret: :string,
+      created_at: {:string, "date-time"},
       discount: {:union, [:map, :null]},
-      discount_id: {:union, [{:string, :generic}, :null]},
-      id: {:string, :generic},
-      label: {:union, [{:string, :generic}, :null]},
-      metadata: {Polarex.MetadataOutputType, :t},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      organization_id: {:string, :generic},
+      discount_id: {:union, [{:string, "uuid4"}, :null]},
+      id: {:string, "uuid4"},
+      label: {:union, [:string, :null]},
+      metadata: :map,
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      organization_id: {:string, "uuid4"},
       payment_processor: {:const, "stripe"},
       products: [{Polarex.CheckoutLinkProduct, :t}],
       require_billing_address: :boolean,
-      success_url: {:union, [{:string, :generic}, :null]},
+      success_url: {:union, [:string, :null]},
       trial_interval: {:union, [{:enum, ["day", "week", "month", "year"]}, :null]},
       trial_interval_count: {:union, [:integer, :null]},
-      url: {:string, :generic}
+      url: :string
     ]
   end
 end

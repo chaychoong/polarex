@@ -22,7 +22,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec benefit_grants_list(keyword) ::
+  @spec benefit_grants_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceBenefitGrant.t()} | {:error, Polarex.HTTPValidationError.t()}
   def benefit_grants_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -50,15 +50,20 @@ defmodule Polarex.Public do
   Create a benefit.
 
   **Scopes**: `benefits:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec benefits_create(
-          Polarex.BenefitCustomCreate.t()
-          | Polarex.BenefitDiscordCreate.t()
-          | Polarex.BenefitDownloadablesCreate.t()
-          | Polarex.BenefitGitHubRepositoryCreate.t()
-          | Polarex.BenefitLicenseKeysCreate.t()
-          | Polarex.BenefitMeterCreditCreate.t(),
-          keyword
+          body ::
+            Polarex.BenefitCustomCreate.t()
+            | Polarex.BenefitDiscordCreate.t()
+            | Polarex.BenefitDownloadablesCreate.t()
+            | Polarex.BenefitGitHubRepositoryCreate.t()
+            | Polarex.BenefitLicenseKeysCreate.t()
+            | Polarex.BenefitMeterCreditCreate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.BenefitCustom.t()
@@ -117,7 +122,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `benefits:write`
   """
-  @spec benefits_delete(String.t(), keyword) ::
+  @spec benefits_delete(id :: String.t(), opts :: keyword) ::
           :ok
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -148,7 +153,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `benefits:read` `benefits:write`
   """
-  @spec benefits_get(String.t(), keyword) ::
+  @spec benefits_get(id :: String.t(), opts :: keyword) ::
           {:ok,
            Polarex.BenefitCustom.t()
            | Polarex.BenefitDiscord.t()
@@ -201,7 +206,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec benefits_grants(String.t(), keyword) ::
+  @spec benefits_grants(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.ListResourceBenefitGrant.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def benefits_grants(id, opts \\ []) do
@@ -243,7 +248,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec benefits_list(keyword) ::
+  @spec benefits_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceBenefit.t()} | {:error, Polarex.HTTPValidationError.t()}
   def benefits_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -281,16 +286,21 @@ defmodule Polarex.Public do
   Update a benefit.
 
   **Scopes**: `benefits:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec benefits_update(
-          String.t(),
-          Polarex.BenefitCustomUpdate.t()
-          | Polarex.BenefitDiscordUpdate.t()
-          | Polarex.BenefitDownloadablesUpdate.t()
-          | Polarex.BenefitGitHubRepositoryUpdate.t()
-          | Polarex.BenefitLicenseKeysUpdate.t()
-          | Polarex.BenefitMeterCreditUpdate.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.BenefitCustomUpdate.t()
+            | Polarex.BenefitDiscordUpdate.t()
+            | Polarex.BenefitDownloadablesUpdate.t()
+            | Polarex.BenefitGitHubRepositoryUpdate.t()
+            | Polarex.BenefitLicenseKeysUpdate.t()
+            | Polarex.BenefitMeterCreditUpdate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.BenefitCustom.t()
@@ -345,12 +355,17 @@ defmodule Polarex.Public do
   Create a checkout link.
 
   **Scopes**: `checkout_links:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec checkout_links_create(
-          Polarex.CheckoutLinkCreateProduct.t()
-          | Polarex.CheckoutLinkCreateProductPrice.t()
-          | Polarex.CheckoutLinkCreateProducts.t(),
-          keyword
+          body ::
+            Polarex.CheckoutLinkCreateProduct.t()
+            | Polarex.CheckoutLinkCreateProductPrice.t()
+            | Polarex.CheckoutLinkCreateProducts.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.CheckoutLink.t()} | {:error, Polarex.HTTPValidationError.t()}
   def checkout_links_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -382,7 +397,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `checkout_links:write`
   """
-  @spec checkout_links_delete(String.t(), keyword) ::
+  @spec checkout_links_delete(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def checkout_links_delete(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -408,7 +423,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `checkout_links:read` `checkout_links:write`
   """
-  @spec checkout_links_get(String.t(), keyword) ::
+  @spec checkout_links_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CheckoutLink.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def checkout_links_get(id, opts \\ []) do
@@ -444,7 +459,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec checkout_links_list(keyword) ::
+  @spec checkout_links_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCheckoutLink.t()} | {:error, Polarex.HTTPValidationError.t()}
   def checkout_links_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -470,8 +485,16 @@ defmodule Polarex.Public do
   Update a checkout link.
 
   **Scopes**: `checkout_links:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec checkout_links_update(String.t(), Polarex.CheckoutLinkUpdate.t(), keyword) ::
+  @spec checkout_links_update(
+          id :: String.t(),
+          body :: Polarex.CheckoutLinkUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CheckoutLink.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def checkout_links_update(id, body, opts \\ []) do
@@ -499,8 +522,16 @@ defmodule Polarex.Public do
   Confirm a checkout session by client secret.
 
   Orders and subscriptions will be processed.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec checkouts_client_confirm(String.t(), Polarex.CheckoutConfirmStripe.t(), keyword) ::
+  @spec checkouts_client_confirm(
+          client_secret :: String.t(),
+          body :: Polarex.CheckoutConfirmStripe.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CheckoutPublicConfirmed.t()}
           | {:error,
              Polarex.AlreadyActiveSubscriptionError.t()
@@ -545,7 +576,7 @@ defmodule Polarex.Public do
 
   Get a checkout session by client secret.
   """
-  @spec checkouts_client_get(String.t(), keyword) ::
+  @spec checkouts_client_get(client_secret :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CheckoutPublic.t()}
           | {:error,
              Polarex.ExpiredCheckoutError.t()
@@ -573,8 +604,16 @@ defmodule Polarex.Public do
   Update Checkout Session from Client
 
   Update a checkout session by client secret.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec checkouts_client_update(String.t(), Polarex.CheckoutUpdatePublic.t(), keyword) ::
+  @spec checkouts_client_update(
+          client_secret :: String.t(),
+          body :: Polarex.CheckoutUpdatePublic.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CheckoutPublic.t()}
           | {:error,
              Polarex.AlreadyActiveSubscriptionError.t()
@@ -618,8 +657,12 @@ defmodule Polarex.Public do
   Create a checkout session.
 
   **Scopes**: `checkouts:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec checkouts_create(Polarex.CheckoutProductsCreate.t(), keyword) ::
+  @spec checkouts_create(body :: Polarex.CheckoutProductsCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Checkout.t()} | {:error, Polarex.HTTPValidationError.t()}
   def checkouts_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -643,7 +686,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `checkouts:read` `checkouts:write`
   """
-  @spec checkouts_get(String.t(), keyword) ::
+  @spec checkouts_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Checkout.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def checkouts_get(id, opts \\ []) do
@@ -682,7 +725,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec checkouts_list(keyword) ::
+  @spec checkouts_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCheckout.t()} | {:error, Polarex.HTTPValidationError.t()}
   def checkouts_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -719,8 +762,12 @@ defmodule Polarex.Public do
   Update a checkout session.
 
   **Scopes**: `checkouts:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec checkouts_update(String.t(), Polarex.CheckoutUpdate.t(), keyword) ::
+  @spec checkouts_update(id :: String.t(), body :: Polarex.CheckoutUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Checkout.t()}
           | {:error,
              Polarex.AlreadyActiveSubscriptionError.t()
@@ -762,14 +809,19 @@ defmodule Polarex.Public do
   Create a custom field.
 
   **Scopes**: `custom_fields:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec custom_fields_create(
-          Polarex.CustomFieldCreateCheckbox.t()
-          | Polarex.CustomFieldCreateDate.t()
-          | Polarex.CustomFieldCreateNumber.t()
-          | Polarex.CustomFieldCreateSelect.t()
-          | Polarex.CustomFieldCreateText.t(),
-          keyword
+          body ::
+            Polarex.CustomFieldCreateCheckbox.t()
+            | Polarex.CustomFieldCreateDate.t()
+            | Polarex.CustomFieldCreateNumber.t()
+            | Polarex.CustomFieldCreateSelect.t()
+            | Polarex.CustomFieldCreateText.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomFieldCheckbox.t()
@@ -821,7 +873,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `custom_fields:write`
   """
-  @spec custom_fields_delete(String.t(), keyword) ::
+  @spec custom_fields_delete(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def custom_fields_delete(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -847,7 +899,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `custom_fields:read` `custom_fields:write`
   """
-  @spec custom_fields_get(String.t(), keyword) ::
+  @spec custom_fields_get(id :: String.t(), opts :: keyword) ::
           {:ok,
            Polarex.CustomFieldCheckbox.t()
            | Polarex.CustomFieldDate.t()
@@ -897,7 +949,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec custom_fields_list(keyword) ::
+  @spec custom_fields_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomField.t()} | {:error, Polarex.HTTPValidationError.t()}
   def custom_fields_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -923,15 +975,20 @@ defmodule Polarex.Public do
   Update a custom field.
 
   **Scopes**: `custom_fields:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec custom_fields_update(
-          String.t(),
-          Polarex.CustomFieldUpdateCheckbox.t()
-          | Polarex.CustomFieldUpdateDate.t()
-          | Polarex.CustomFieldUpdateNumber.t()
-          | Polarex.CustomFieldUpdateSelect.t()
-          | Polarex.CustomFieldUpdateText.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.CustomFieldUpdateCheckbox.t()
+            | Polarex.CustomFieldUpdateDate.t()
+            | Polarex.CustomFieldUpdateNumber.t()
+            | Polarex.CustomFieldUpdateSelect.t()
+            | Polarex.CustomFieldUpdateText.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomFieldCheckbox.t()
@@ -984,7 +1041,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_meters:read`
   """
-  @spec customer_meters_get(String.t(), keyword) ::
+  @spec customer_meters_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerMeter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_meters_get(id, opts \\ []) do
@@ -1022,7 +1079,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_meters_list(keyword) ::
+  @spec customer_meters_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerMeter.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_meters_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -1059,7 +1116,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_benefit_grants_get(String.t(), keyword) ::
+  @spec customer_portal_benefit_grants_get(id :: String.t(), opts :: keyword) ::
           {:ok,
            Polarex.CustomerBenefitGrantCustom.t()
            | Polarex.CustomerBenefitGrantDiscord.t()
@@ -1114,7 +1171,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_benefit_grants_list(keyword) ::
+  @spec customer_portal_benefit_grants_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerBenefitGrant.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_benefit_grants_list(opts \\ []) do
@@ -1153,16 +1210,21 @@ defmodule Polarex.Public do
   Update a benefit grant for the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_benefit_grants_update(
-          String.t(),
-          Polarex.CustomerBenefitGrantCustomUpdate.t()
-          | Polarex.CustomerBenefitGrantDiscordUpdate.t()
-          | Polarex.CustomerBenefitGrantDownloadablesUpdate.t()
-          | Polarex.CustomerBenefitGrantGitHubRepositoryUpdate.t()
-          | Polarex.CustomerBenefitGrantLicenseKeysUpdate.t()
-          | Polarex.CustomerBenefitGrantMeterCreditUpdate.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.CustomerBenefitGrantCustomUpdate.t()
+            | Polarex.CustomerBenefitGrantDiscordUpdate.t()
+            | Polarex.CustomerBenefitGrantDownloadablesUpdate.t()
+            | Polarex.CustomerBenefitGrantGitHubRepositoryUpdate.t()
+            | Polarex.CustomerBenefitGrantLicenseKeysUpdate.t()
+            | Polarex.CustomerBenefitGrantMeterCreditUpdate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerBenefitGrantCustom.t()
@@ -1222,7 +1284,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customer_meters_get(String.t(), keyword) ::
+  @spec customer_portal_customer_meters_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerCustomerMeter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_customer_meters_get(id, opts \\ []) do
@@ -1258,7 +1320,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_customer_meters_list(keyword) ::
+  @spec customer_portal_customer_meters_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerCustomerMeter.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_customer_meters_list(opts \\ []) do
@@ -1286,7 +1348,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customer_session_introspect(keyword) ::
+  @spec customer_portal_customer_session_introspect(opts :: keyword) ::
           {:ok, Polarex.CustomerCustomerSession.t()} | :error
   def customer_portal_customer_session_introspect(opts \\ []) do
     client = opts[:client] || @default_client
@@ -1307,10 +1369,14 @@ defmodule Polarex.Public do
   Add a payment method to the authenticated customer.
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_customers_add_payment_method(
-          Polarex.CustomerPaymentMethodCreate.t(),
-          keyword
+          body :: Polarex.CustomerPaymentMethodCreate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerPaymentMethodCreateRequiresActionResponse.t()
@@ -1345,10 +1411,14 @@ defmodule Polarex.Public do
   Confirm a payment method for the authenticated customer.
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_customers_confirm_payment_method(
-          Polarex.CustomerPaymentMethodConfirm.t(),
-          keyword
+          body :: Polarex.CustomerPaymentMethodConfirm.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerPaymentMethodCreateRequiresActionResponse.t()
@@ -1385,7 +1455,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customers_delete_payment_method(String.t(), keyword) ::
+  @spec customer_portal_customers_delete_payment_method(id :: String.t(), opts :: keyword) ::
           :ok
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -1416,7 +1486,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customers_get(keyword) ::
+  @spec customer_portal_customers_get(opts :: keyword) ::
           {:ok, Polarex.CustomerPortalCustomer.t()} | :error
   def customer_portal_customers_get(opts \\ []) do
     client = opts[:client] || @default_client
@@ -1444,7 +1514,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec customer_portal_customers_list_payment_methods(keyword) ::
+  @spec customer_portal_customers_list_payment_methods(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerPaymentMethod.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_customers_list_payment_methods(opts \\ []) do
@@ -1471,9 +1541,15 @@ defmodule Polarex.Public do
   Update authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_customers_update(Polarex.CustomerPortalCustomerUpdate.t(), keyword) ::
-          {:ok, Polarex.CustomerPortalCustomer.t()} | {:error, Polarex.HTTPValidationError.t()}
+  @spec customer_portal_customers_update(
+          body :: Polarex.CustomerPortalCustomerUpdate.t(),
+          opts :: keyword
+        ) :: {:ok, Polarex.CustomerPortalCustomer.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_customers_update(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -1504,7 +1580,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec customer_portal_downloadables_list(keyword) ::
+  @spec customer_portal_downloadables_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceDownloadableRead.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_downloadables_list(opts \\ []) do
@@ -1534,8 +1610,15 @@ defmodule Polarex.Public do
   > client, like a desktop application or a mobile app.
   > If you plan to validate a license key on a server, use the `/v1/license-keys/activate`
   > endpoint instead.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_license_keys_activate(Polarex.LicenseKeyActivate.t(), keyword) ::
+  @spec customer_portal_license_keys_activate(
+          body :: Polarex.LicenseKeyActivate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.LicenseKeyActivationRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -1570,9 +1653,15 @@ defmodule Polarex.Public do
   > client, like a desktop application or a mobile app.
   > If you plan to validate a license key on a server, use the `/v1/license-keys/deactivate`
   > endpoint instead.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_license_keys_deactivate(Polarex.LicenseKeyDeactivate.t(), keyword) ::
-          :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
+  @spec customer_portal_license_keys_deactivate(
+          body :: Polarex.LicenseKeyDeactivate.t(),
+          opts :: keyword
+        ) :: :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_license_keys_deactivate(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -1599,7 +1688,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_license_keys_get(String.t(), keyword) ::
+  @spec customer_portal_license_keys_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.LicenseKeyWithActivations.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_license_keys_get(id, opts \\ []) do
@@ -1631,7 +1720,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec customer_portal_license_keys_list(keyword) ::
+  @spec customer_portal_license_keys_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceLicenseKeyRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -1666,8 +1755,15 @@ defmodule Polarex.Public do
   > client, like a desktop application or a mobile app.
   > If you plan to validate a license key on a server, use the `/v1/license-keys/validate`
   > endpoint instead.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_license_keys_validate(Polarex.LicenseKeyValidate.t(), keyword) ::
+  @spec customer_portal_license_keys_validate(
+          body :: Polarex.LicenseKeyValidate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.ValidatedLicenseKey.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_license_keys_validate(body, opts \\ []) do
@@ -1695,11 +1791,15 @@ defmodule Polarex.Public do
   Confirm a retry payment using a Stripe confirmation token.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_orders_confirm_retry_payment(
-          String.t(),
-          Polarex.CustomerOrderConfirmPayment.t(),
-          keyword
+          id :: String.t(),
+          body :: Polarex.CustomerOrderConfirmPayment.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.CustomerOrderPaymentConfirmation.t()}
           | {:error,
@@ -1733,7 +1833,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_generate_invoice(String.t(), keyword) ::
+  @spec customer_portal_orders_generate_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, map}
           | {:error, Polarex.MissingInvoiceBillingDetails.t() | Polarex.NotPaidOrder.t()}
   def customer_portal_orders_generate_invoice(id, opts \\ []) do
@@ -1759,7 +1859,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_get(String.t(), keyword) ::
+  @spec customer_portal_orders_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrder.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_get(id, opts \\ []) do
@@ -1786,7 +1886,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_get_payment_status(String.t(), keyword) ::
+  @spec customer_portal_orders_get_payment_status(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrderPaymentStatus.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_get_payment_status(id, opts \\ []) do
@@ -1813,7 +1913,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_invoice(String.t(), keyword) ::
+  @spec customer_portal_orders_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrderInvoice.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_invoice(id, opts \\ []) do
@@ -1851,7 +1951,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_orders_list(keyword) ::
+  @spec customer_portal_orders_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerOrder.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_orders_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -1887,8 +1987,16 @@ defmodule Polarex.Public do
   Update an order for the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_orders_update(String.t(), Polarex.CustomerOrderUpdate.t(), keyword) ::
+  @spec customer_portal_orders_update(
+          id :: String.t(),
+          body :: Polarex.CustomerOrderUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CustomerOrder.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_update(id, body, opts \\ []) do
@@ -1915,7 +2023,7 @@ defmodule Polarex.Public do
 
   Get a customer portal's organization by slug.
   """
-  @spec customer_portal_organizations_get(String.t(), keyword) ::
+  @spec customer_portal_organizations_get(slug :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrganizationData.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_organizations_get(slug, opts \\ []) do
@@ -1939,8 +2047,12 @@ defmodule Polarex.Public do
   Assign Seat
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_seats_assign_seat(Polarex.SeatAssign.t(), keyword) ::
+  @spec customer_portal_seats_assign_seat(body :: Polarex.SeatAssign.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_seats_assign_seat(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -1971,7 +2083,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_seats_list_claimed_subscriptions(keyword) ::
+  @spec customer_portal_seats_list_claimed_subscriptions(opts :: keyword) ::
           {:ok, [Polarex.CustomerSubscription.t()]} | :error
   def customer_portal_seats_list_claimed_subscriptions(opts \\ []) do
     client = opts[:client] || @default_client
@@ -1997,7 +2109,7 @@ defmodule Polarex.Public do
     * `order_id`: Order ID
 
   """
-  @spec customer_portal_seats_list_seats(keyword) ::
+  @spec customer_portal_seats_list_seats(opts :: keyword) ::
           {:ok, Polarex.SeatsList.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_seats_list_seats(opts \\ []) do
     client = opts[:client] || @default_client
@@ -2025,7 +2137,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:write`
   """
-  @spec customer_portal_seats_resend_invitation(String.t(), keyword) ::
+  @spec customer_portal_seats_resend_invitation(seat_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_seats_resend_invitation(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2052,7 +2164,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:write`
   """
-  @spec customer_portal_seats_revoke_seat(String.t(), keyword) ::
+  @spec customer_portal_seats_revoke_seat(seat_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_seats_revoke_seat(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2080,7 +2192,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:write`
   """
-  @spec customer_portal_subscriptions_cancel(String.t(), keyword) ::
+  @spec customer_portal_subscriptions_cancel(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error,
              Polarex.AlreadyCanceledSubscription.t()
@@ -2111,7 +2223,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_subscriptions_get(String.t(), keyword) ::
+  @spec customer_portal_subscriptions_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_subscriptions_get(id, opts \\ []) do
@@ -2148,7 +2260,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_subscriptions_list(keyword) ::
+  @spec customer_portal_subscriptions_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerSubscription.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_subscriptions_list(opts \\ []) do
@@ -2175,13 +2287,18 @@ defmodule Polarex.Public do
   Update a subscription of the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_subscriptions_update(
-          String.t(),
-          Polarex.CustomerSubscriptionCancel.t()
-          | Polarex.CustomerSubscriptionUpdateProduct.t()
-          | Polarex.CustomerSubscriptionUpdateSeats.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.CustomerSubscriptionCancel.t()
+            | Polarex.CustomerSubscriptionUpdateProduct.t()
+            | Polarex.CustomerSubscriptionUpdateSeats.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error,
@@ -2223,7 +2340,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_wallets_get(String.t(), keyword) ::
+  @spec customer_portal_wallets_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWallet.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_wallets_get(id, opts \\ []) do
@@ -2257,7 +2374,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_wallets_list(keyword) ::
+  @spec customer_portal_wallets_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerWallet.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_wallets_list(opts \\ []) do
@@ -2282,8 +2399,12 @@ defmodule Polarex.Public do
   Assign Seat
 
   **Scopes**: `customer_seats:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_seats_assign_seat(Polarex.SeatAssign.t(), keyword) ::
+  @spec customer_seats_assign_seat(body :: Polarex.SeatAssign.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_assign_seat(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2309,8 +2430,12 @@ defmodule Polarex.Public do
 
   @doc """
   Claim Seat
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_seats_claim_seat(Polarex.SeatClaim.t(), keyword) ::
+  @spec customer_seats_claim_seat(body :: Polarex.SeatClaim.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeatClaimResponse.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_claim_seat(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2335,7 +2460,7 @@ defmodule Polarex.Public do
   @doc """
   Get Claim Info
   """
-  @spec customer_seats_get_claim_info(String.t(), keyword) ::
+  @spec customer_seats_get_claim_info(invitation_token :: String.t(), opts :: keyword) ::
           {:ok, Polarex.SeatClaimInfo.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_get_claim_info(invitation_token, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2367,7 +2492,7 @@ defmodule Polarex.Public do
     * `order_id`
 
   """
-  @spec customer_seats_list_seats(keyword) ::
+  @spec customer_seats_list_seats(opts :: keyword) ::
           {:ok, Polarex.SeatsList.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_list_seats(opts \\ []) do
     client = opts[:client] || @default_client
@@ -2395,7 +2520,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_seats:write`
   """
-  @spec customer_seats_resend_invitation(String.t(), keyword) ::
+  @spec customer_seats_resend_invitation(seat_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_resend_invitation(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2422,7 +2547,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customer_seats:write`
   """
-  @spec customer_seats_revoke_seat(String.t(), keyword) ::
+  @spec customer_seats_revoke_seat(seat_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSeat.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_seats_revoke_seat(seat_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2449,11 +2574,16 @@ defmodule Polarex.Public do
   Create a customer session.
 
   **Scopes**: `customer_sessions:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_sessions_create(
-          Polarex.CustomerSessionCustomerExternalIDCreate.t()
-          | Polarex.CustomerSessionCustomerIDCreate.t(),
-          keyword
+          body ::
+            Polarex.CustomerSessionCustomerExternalIDCreate.t()
+            | Polarex.CustomerSessionCustomerIDCreate.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.CustomerSession.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_sessions_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2484,16 +2614,14 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_create(Polarex.CustomerCreate.t(), keyword) ::
+  @spec customers_create(body :: Polarex.CustomerCreate.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customers_create(body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [body: body],
@@ -2501,7 +2629,6 @@ defmodule Polarex.Public do
       url: "/v1/customers/",
       body: body,
       method: :post,
-      query: query,
       request: [{"application/json", {Polarex.CustomerCreate, :t}}],
       response: [
         {201, {Polarex.CustomerWithMembers, :t}},
@@ -2530,7 +2657,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:write`
   """
-  @spec customers_delete(String.t(), keyword) ::
+  @spec customers_delete(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_delete(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2558,7 +2685,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:write`
   """
-  @spec customers_delete_external(String.t(), keyword) ::
+  @spec customers_delete_external(external_id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_delete_external(external_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2589,7 +2716,8 @@ defmodule Polarex.Public do
     * `organization_id`: Filter by organization ID.
 
   """
-  @spec customers_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec customers_export(opts :: keyword) ::
+          {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def customers_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id])
@@ -2611,25 +2739,18 @@ defmodule Polarex.Public do
   Get a customer by ID.
 
   **Scopes**: `customers:read` `customers:write`
-
-  ## Options
-
-    * `include_members`: Include members in the response. Only populated when set to true.
-
   """
-  @spec customers_get(String.t(), keyword) ::
+  @spec customers_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get(id, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [id: id],
       call: {Polarex.Public, :customers_get},
       url: "/v1/customers/#{id}",
       method: :get,
-      query: query,
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
         {404, {Polarex.ResourceNotFound, :t}},
@@ -2645,25 +2766,18 @@ defmodule Polarex.Public do
   Get a customer by external ID.
 
   **Scopes**: `customers:read` `customers:write`
-
-  ## Options
-
-    * `include_members`: Include members in the response. Only populated when set to true.
-
   """
-  @spec customers_get_external(String.t(), keyword) ::
+  @spec customers_get_external(external_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_external(external_id, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [external_id: external_id],
       call: {Polarex.Public, :customers_get_external},
       url: "/v1/customers/external/#{external_id}",
       method: :get,
-      query: query,
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
         {404, {Polarex.ResourceNotFound, :t}},
@@ -2686,7 +2800,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:read` `customers:write`
   """
-  @spec customers_get_state(String.t(), keyword) ::
+  @spec customers_get_state(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerState.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_state(id, opts \\ []) do
@@ -2719,7 +2833,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:read` `customers:write`
   """
-  @spec customers_get_state_external(String.t(), keyword) ::
+  @spec customers_get_state_external(external_id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerState.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_get_state_external(external_id, opts \\ []) do
@@ -2751,30 +2865,20 @@ defmodule Polarex.Public do
     * `organization_id`: Filter by organization ID.
     * `email`: Filter by exact email.
     * `query`: Filter by name, email, or external ID.
-    * `include_members`: Include members in the response. Only populated when set to true.
     * `page`: Page number, defaults to 1.
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec customers_list(keyword) ::
+  @spec customers_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customers_list(opts \\ []) do
     client = opts[:client] || @default_client
 
     query =
-      Keyword.take(opts, [
-        :email,
-        :include_members,
-        :limit,
-        :metadata,
-        :organization_id,
-        :page,
-        :query,
-        :sorting
-      ])
+      Keyword.take(opts, [:email, :limit, :metadata, :organization_id, :page, :query, :sorting])
 
     client.request(%{
       args: [],
@@ -2797,17 +2901,15 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_update(String.t(), Polarex.CustomerUpdate.t(), keyword) ::
+  @spec customers_update(id :: String.t(), body :: Polarex.CustomerUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_update(id, body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [id: id, body: body],
@@ -2815,7 +2917,6 @@ defmodule Polarex.Public do
       url: "/v1/customers/#{id}",
       body: body,
       method: :patch,
-      query: query,
       request: [{"application/json", {Polarex.CustomerUpdate, :t}}],
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
@@ -2833,17 +2934,19 @@ defmodule Polarex.Public do
 
   **Scopes**: `customers:write`
 
-  ## Options
+  ## Request Body
 
-    * `include_members`: Include members in the response. Only populated when set to true.
-
+  **Content Types**: `application/json`
   """
-  @spec customers_update_external(String.t(), Polarex.CustomerUpdateExternalID.t(), keyword) ::
+  @spec customers_update_external(
+          external_id :: String.t(),
+          body :: Polarex.CustomerUpdateExternalID.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CustomerWithMembers.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customers_update_external(external_id, body, opts \\ []) do
     client = opts[:client] || @default_client
-    query = Keyword.take(opts, [:include_members])
 
     client.request(%{
       args: [external_id: external_id, body: body],
@@ -2851,7 +2954,6 @@ defmodule Polarex.Public do
       url: "/v1/customers/external/#{external_id}",
       body: body,
       method: :patch,
-      query: query,
       request: [{"application/json", {Polarex.CustomerUpdateExternalID, :t}}],
       response: [
         {200, {Polarex.CustomerWithMembers, :t}},
@@ -2868,13 +2970,18 @@ defmodule Polarex.Public do
   Create a discount.
 
   **Scopes**: `discounts:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec discounts_create(
-          Polarex.DiscountFixedOnceForeverDurationCreate.t()
-          | Polarex.DiscountFixedRepeatDurationCreate.t()
-          | Polarex.DiscountPercentageOnceForeverDurationCreate.t()
-          | Polarex.DiscountPercentageRepeatDurationCreate.t(),
-          keyword
+          body ::
+            Polarex.DiscountFixedOnceForeverDurationCreate.t()
+            | Polarex.DiscountFixedRepeatDurationCreate.t()
+            | Polarex.DiscountPercentageOnceForeverDurationCreate.t()
+            | Polarex.DiscountPercentageRepeatDurationCreate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.DiscountFixedOnceForeverDuration.t()
@@ -2923,7 +3030,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `discounts:write`
   """
-  @spec discounts_delete(String.t(), keyword) ::
+  @spec discounts_delete(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def discounts_delete(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -2949,7 +3056,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `discounts:read` `discounts:write`
   """
-  @spec discounts_get(String.t(), keyword) ::
+  @spec discounts_get(id :: String.t(), opts :: keyword) ::
           {:ok,
            Polarex.DiscountFixedOnceForeverDuration.t()
            | Polarex.DiscountFixedRepeatDuration.t()
@@ -2996,7 +3103,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec discounts_list(keyword) ::
+  @spec discounts_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceDiscount.t()} | {:error, Polarex.HTTPValidationError.t()}
   def discounts_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3022,8 +3129,12 @@ defmodule Polarex.Public do
   Update a discount.
 
   **Scopes**: `discounts:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec discounts_update(String.t(), Polarex.DiscountUpdate.t(), keyword) ::
+  @spec discounts_update(id :: String.t(), body :: Polarex.DiscountUpdate.t(), opts :: keyword) ::
           {:ok,
            Polarex.DiscountFixedOnceForeverDuration.t()
            | Polarex.DiscountFixedRepeatDuration.t()
@@ -3063,7 +3174,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `disputes:read`
   """
-  @spec disputes_get(String.t(), keyword) ::
+  @spec disputes_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Dispute.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def disputes_get(id, opts \\ []) do
@@ -3100,7 +3211,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec disputes_list(keyword) ::
+  @spec disputes_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceDispute.t()} | {:error, Polarex.HTTPValidationError.t()}
   def disputes_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3141,7 +3252,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec event_types_list(keyword) ::
+  @spec event_types_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceEventTypeWithStats.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def event_types_list(opts \\ []) do
@@ -3179,8 +3290,12 @@ defmodule Polarex.Public do
   Update Event Type
 
   Update an event type's label.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec event_types_update(String.t(), Polarex.EventTypeUpdate.t(), keyword) ::
+  @spec event_types_update(id :: String.t(), body :: Polarex.EventTypeUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.EventType.t()} | {:error, Polarex.HTTPValidationError.t()}
   def event_types_update(id, body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3208,7 +3323,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `events:read` `events:write`
   """
-  @spec events_get(String.t(), keyword) ::
+  @spec events_get(id :: String.t(), opts :: keyword) ::
           {:ok, map | Polarex.UserEvent.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def events_get(id, opts \\ []) do
@@ -3234,8 +3349,12 @@ defmodule Polarex.Public do
   Ingest batch of events.
 
   **Scopes**: `events:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec events_ingest(Polarex.EventsIngest.t(), keyword) ::
+  @spec events_ingest(body :: Polarex.EventsIngest.t(), opts :: keyword) ::
           {:ok, Polarex.EventsIngestResponse.t()} | {:error, Polarex.HTTPValidationError.t()}
   def events_ingest(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3282,7 +3401,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec events_list(keyword) ::
+  @spec events_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceEvent.t() | Polarex.ListResourceWithCursorPaginationEvent.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def events_list(opts \\ []) do
@@ -3343,7 +3462,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec events_list_names(keyword) ::
+  @spec events_list_names(opts :: keyword) ::
           {:ok, Polarex.ListResourceEventName.t()} | {:error, Polarex.HTTPValidationError.t()}
   def events_list_names(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3380,12 +3499,17 @@ defmodule Polarex.Public do
   Create a file.
 
   **Scopes**: `files:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec files_create(
-          Polarex.DownloadableFileCreate.t()
-          | Polarex.OrganizationAvatarFileCreate.t()
-          | Polarex.ProductMediaFileCreate.t(),
-          keyword
+          body ::
+            Polarex.DownloadableFileCreate.t()
+            | Polarex.OrganizationAvatarFileCreate.t()
+            | Polarex.ProductMediaFileCreate.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.FileUpload.t()} | {:error, Polarex.HTTPValidationError.t()}
   def files_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3417,7 +3541,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `files:write`
   """
-  @spec files_delete(String.t(), keyword) ::
+  @spec files_delete(id :: String.t(), opts :: keyword) ::
           :ok
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3456,7 +3580,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec files_list(keyword) ::
+  @spec files_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceFileRead.t()} | {:error, Polarex.HTTPValidationError.t()}
   def files_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3482,8 +3606,12 @@ defmodule Polarex.Public do
   Update a file.
 
   **Scopes**: `files:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec files_update(String.t(), Polarex.FilePatch.t(), keyword) ::
+  @spec files_update(id :: String.t(), body :: Polarex.FilePatch.t(), opts :: keyword) ::
           {:ok,
            Polarex.DownloadableFileRead.t()
            | Polarex.OrganizationAvatarFileRead.t()
@@ -3524,8 +3652,12 @@ defmodule Polarex.Public do
   Complete a file upload.
 
   **Scopes**: `files:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec files_uploaded(String.t(), Polarex.FileUploadCompleted.t(), keyword) ::
+  @spec files_uploaded(id :: String.t(), body :: Polarex.FileUploadCompleted.t(), opts :: keyword) ::
           {:ok,
            Polarex.DownloadableFileRead.t()
            | Polarex.OrganizationAvatarFileRead.t()
@@ -3566,8 +3698,12 @@ defmodule Polarex.Public do
   Activate a license key instance.
 
   **Scopes**: `license_keys:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec license_keys_activate(Polarex.LicenseKeyActivate.t(), keyword) ::
+  @spec license_keys_activate(body :: Polarex.LicenseKeyActivate.t(), opts :: keyword) ::
           {:ok, Polarex.LicenseKeyActivationRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3599,8 +3735,12 @@ defmodule Polarex.Public do
   Deactivate a license key instance.
 
   **Scopes**: `license_keys:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec license_keys_deactivate(Polarex.LicenseKeyDeactivate.t(), keyword) ::
+  @spec license_keys_deactivate(body :: Polarex.LicenseKeyDeactivate.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def license_keys_deactivate(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3628,7 +3768,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `license_keys:read` `license_keys:write`
   """
-  @spec license_keys_get(String.t(), keyword) ::
+  @spec license_keys_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.LicenseKeyWithActivations.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3659,7 +3799,11 @@ defmodule Polarex.Public do
 
   **Scopes**: `license_keys:read` `license_keys:write`
   """
-  @spec license_keys_get_activation(String.t(), String.t(), keyword) ::
+  @spec license_keys_get_activation(
+          id :: String.t(),
+          activation_id :: String.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.LicenseKeyActivationRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3698,7 +3842,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec license_keys_list(keyword) ::
+  @spec license_keys_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceLicenseKeyRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3730,8 +3874,16 @@ defmodule Polarex.Public do
   Update a license key.
 
   **Scopes**: `license_keys:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec license_keys_update(String.t(), Polarex.LicenseKeyUpdate.t(), keyword) ::
+  @spec license_keys_update(
+          id :: String.t(),
+          body :: Polarex.LicenseKeyUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.LicenseKeyRead.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -3763,8 +3915,12 @@ defmodule Polarex.Public do
   Validate a license key.
 
   **Scopes**: `license_keys:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec license_keys_validate(Polarex.LicenseKeyValidate.t(), keyword) ::
+  @spec license_keys_validate(body :: Polarex.LicenseKeyValidate.t(), opts :: keyword) ::
           {:ok, Polarex.ValidatedLicenseKey.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def license_keys_validate(body, opts \\ []) do
@@ -3795,8 +3951,12 @@ defmodule Polarex.Public do
   The authenticated user or organization must have access to the customer's organization.
 
   **Scopes**: `members:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec members_create_member(Polarex.MemberCreate.t(), keyword) ::
+  @spec members_create_member(body :: Polarex.MemberCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Member.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def members_create_member(body, opts \\ []) do
@@ -3828,7 +3988,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `members:write`
   """
-  @spec members_delete_member(String.t(), keyword) ::
+  @spec members_delete_member(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def members_delete_member(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3862,7 +4022,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec members_list_members(keyword) ::
+  @spec members_list_members(opts :: keyword) ::
           {:ok, Polarex.ListResourceMember.t()} | {:error, Polarex.HTTPValidationError.t()}
   def members_list_members(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3888,8 +4048,12 @@ defmodule Polarex.Public do
   Create a meter.
 
   **Scopes**: `meters:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec meters_create(Polarex.MeterCreate.t(), keyword) ::
+  @spec meters_create(body :: Polarex.MeterCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()} | {:error, Polarex.HTTPValidationError.t()}
   def meters_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -3913,7 +4077,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `meters:read` `meters:write`
   """
-  @spec meters_get(String.t(), keyword) ::
+  @spec meters_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_get(id, opts \\ []) do
@@ -3951,7 +4115,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec meters_list(keyword) ::
+  @spec meters_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceMeter.t()} | {:error, Polarex.HTTPValidationError.t()}
   def meters_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -3996,7 +4160,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec meters_quantities(String.t(), keyword) ::
+  @spec meters_quantities(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.MeterQuantities.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_quantities(id, opts \\ []) do
@@ -4034,8 +4198,12 @@ defmodule Polarex.Public do
   Update a meter.
 
   **Scopes**: `meters:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec meters_update(String.t(), Polarex.MeterUpdate.t(), keyword) ::
+  @spec meters_update(id :: String.t(), body :: Polarex.MeterUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_update(id, body, opts \\ []) do
@@ -4079,7 +4247,7 @@ defmodule Polarex.Public do
     * `metrics`: List of metric slugs to focus on. When provided, only the queries needed for these metrics will be executed, improving performance. If not provided, all metrics are returned.
 
   """
-  @spec metrics_get(keyword) ::
+  @spec metrics_get(opts :: keyword) ::
           {:ok, Polarex.MetricsResponse.t()} | {:error, Polarex.HTTPValidationError.t()}
   def metrics_get(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4115,7 +4283,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `metrics:read`
   """
-  @spec metrics_limits(keyword) :: {:ok, Polarex.MetricsLimits.t()} | :error
+  @spec metrics_limits(opts :: keyword) :: {:ok, Polarex.MetricsLimits.t()} | :error
   def metrics_limits(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -4132,7 +4300,7 @@ defmodule Polarex.Public do
   @doc """
   Authorize
   """
-  @spec oauth2_authorize(keyword) ::
+  @spec oauth2_authorize(opts :: keyword) ::
           {:ok, Polarex.AuthorizeResponseOrganization.t() | Polarex.AuthorizeResponseUser.t()}
           | :error
   def oauth2_authorize(opts \\ []) do
@@ -4156,9 +4324,15 @@ defmodule Polarex.Public do
   Create Client
 
   Create an OAuth2 client.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec oauth2_clients_oauth2_create_client(Polarex.OAuth2ClientConfiguration.t(), keyword) ::
-          {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec oauth2_clients_oauth2_create_client(
+          body :: Polarex.OAuth2ClientConfiguration.t(),
+          opts :: keyword
+        ) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def oauth2_clients_oauth2_create_client(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -4179,7 +4353,7 @@ defmodule Polarex.Public do
 
   Delete an OAuth2 client.
   """
-  @spec oauth2_clients_oauth2_delete_client(String.t(), keyword) ::
+  @spec oauth2_clients_oauth2_delete_client(client_id :: String.t(), opts :: keyword) ::
           {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def oauth2_clients_oauth2_delete_client(client_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4199,7 +4373,7 @@ defmodule Polarex.Public do
 
   Get an OAuth2 client by Client ID.
   """
-  @spec oauth2_clients_oauth2_get_client(String.t(), keyword) ::
+  @spec oauth2_clients_oauth2_get_client(client_id :: String.t(), opts :: keyword) ::
           {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def oauth2_clients_oauth2_get_client(client_id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4218,11 +4392,15 @@ defmodule Polarex.Public do
   Update Client
 
   Update an OAuth2 client.
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec oauth2_clients_oauth2_update_client(
-          String.t(),
-          Polarex.OAuth2ClientConfigurationUpdate.t(),
-          keyword
+          client_id :: String.t(),
+          body :: Polarex.OAuth2ClientConfigurationUpdate.t(),
+          opts :: keyword
         ) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def oauth2_clients_oauth2_update_client(client_id, body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4243,8 +4421,12 @@ defmodule Polarex.Public do
   Introspect Token
 
   Get information about an access token.
+
+  ## Request Body
+
+  **Content Types**: `application/x-www-form-urlencoded`
   """
-  @spec oauth2_introspect_token(Polarex.IntrospectTokenRequest.t(), keyword) ::
+  @spec oauth2_introspect_token(body :: Polarex.IntrospectTokenRequest.t(), opts :: keyword) ::
           {:ok, Polarex.IntrospectTokenResponse.t()} | :error
   def oauth2_introspect_token(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4265,12 +4447,17 @@ defmodule Polarex.Public do
   Request Token
 
   Request an access token using a valid grant.
+
+  ## Request Body
+
+  **Content Types**: `application/x-www-form-urlencoded`
   """
   @spec oauth2_request_token(
-          Polarex.AuthorizationCodeTokenRequest.t()
-          | Polarex.RefreshTokenRequest.t()
-          | Polarex.WebTokenRequest.t(),
-          keyword
+          body ::
+            Polarex.AuthorizationCodeTokenRequest.t()
+            | Polarex.RefreshTokenRequest.t()
+            | Polarex.WebTokenRequest.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.TokenResponse.t()} | :error
   def oauth2_request_token(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4299,8 +4486,13 @@ defmodule Polarex.Public do
   Revoke Token
 
   Revoke an access token or a refresh token.
+
+  ## Request Body
+
+  **Content Types**: `application/x-www-form-urlencoded`
   """
-  @spec oauth2_revoke_token(Polarex.RevokeTokenRequest.t(), keyword) :: {:ok, map} | :error
+  @spec oauth2_revoke_token(body :: Polarex.RevokeTokenRequest.t(), opts :: keyword) ::
+          {:ok, map} | :error
   def oauth2_revoke_token(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -4321,7 +4513,7 @@ defmodule Polarex.Public do
 
   Get information about the authenticated user.
   """
-  @spec oauth2_userinfo(keyword) ::
+  @spec oauth2_userinfo(opts :: keyword) ::
           {:ok, Polarex.UserInfoOrganization.t() | Polarex.UserInfoUser.t()} | :error
   def oauth2_userinfo(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4351,7 +4543,7 @@ defmodule Polarex.Public do
     * `product_id`: Filter by product ID.
 
   """
-  @spec orders_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec orders_export(opts :: keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def orders_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id, :product_id])
@@ -4374,7 +4566,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_generate_invoice(String.t(), keyword) ::
+  @spec orders_generate_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, map}
           | {:error, Polarex.MissingInvoiceBillingDetails.t() | Polarex.NotPaidOrder.t()}
   def orders_generate_invoice(id, opts \\ []) do
@@ -4400,7 +4592,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_get(String.t(), keyword) ::
+  @spec orders_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Order.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_get(id, opts \\ []) do
@@ -4427,7 +4619,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_invoice(String.t(), keyword) ::
+  @spec orders_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.OrderInvoice.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_invoice(id, opts \\ []) do
@@ -4468,7 +4660,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec orders_list(keyword) ::
+  @spec orders_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceOrder.t()} | {:error, Polarex.HTTPValidationError.t()}
   def orders_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4504,8 +4696,12 @@ defmodule Polarex.Public do
   Update an order.
 
   **Scopes**: `orders:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec orders_update(String.t(), Polarex.OrderUpdate.t(), keyword) ::
+  @spec orders_update(id :: String.t(), body :: Polarex.OrderUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Order.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_update(id, body, opts \\ []) do
@@ -4533,8 +4729,12 @@ defmodule Polarex.Public do
   Create an organization.
 
   **Scopes**: `organizations:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec organizations_create(Polarex.OrganizationCreate.t(), keyword) ::
+  @spec organizations_create(body :: Polarex.OrganizationCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Organization.t()} | {:error, Polarex.HTTPValidationError.t()}
   def organizations_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4558,7 +4758,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `organizations:read` `organizations:write`
   """
-  @spec organizations_get(String.t(), keyword) ::
+  @spec organizations_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Organization.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def organizations_get(id, opts \\ []) do
@@ -4593,7 +4793,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec organizations_list(keyword) ::
+  @spec organizations_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceOrganization.t()} | {:error, Polarex.HTTPValidationError.t()}
   def organizations_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4619,8 +4819,16 @@ defmodule Polarex.Public do
   Update an organization.
 
   **Scopes**: `organizations:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec organizations_update(String.t(), Polarex.OrganizationUpdate.t(), keyword) ::
+  @spec organizations_update(
+          id :: String.t(),
+          body :: Polarex.OrganizationUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.Organization.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -4653,7 +4861,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `payments:read`
   """
-  @spec payments_get(String.t(), keyword) ::
+  @spec payments_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CardPayment.t() | Polarex.GenericPayment.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def payments_get(id, opts \\ []) do
@@ -4693,7 +4901,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec payments_list(keyword) ::
+  @spec payments_list(opts :: keyword) ::
           {:ok, Polarex.ListResource.t()} | {:error, Polarex.HTTPValidationError.t()}
   def payments_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4728,10 +4936,14 @@ defmodule Polarex.Public do
   Create a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec products_create(
-          Polarex.ProductCreateOneTime.t() | Polarex.ProductCreateRecurring.t(),
-          keyword
+          body :: Polarex.ProductCreateOneTime.t() | Polarex.ProductCreateRecurring.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.Product.t()} | {:error, Polarex.HTTPValidationError.t()}
   def products_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -4758,7 +4970,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `products:read` `products:write`
   """
-  @spec products_get(String.t(), keyword) ::
+  @spec products_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Product.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def products_get(id, opts \\ []) do
@@ -4799,7 +5011,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec products_list(keyword) ::
+  @spec products_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceProduct.t()} | {:error, Polarex.HTTPValidationError.t()}
   def products_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4838,8 +5050,12 @@ defmodule Polarex.Public do
   Update a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec products_update(String.t(), Polarex.ProductUpdate.t(), keyword) ::
+  @spec products_update(id :: String.t(), body :: Polarex.ProductUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Product.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -4871,8 +5087,16 @@ defmodule Polarex.Public do
   Update benefits granted by a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec products_update_benefits(String.t(), Polarex.ProductBenefitsUpdate.t(), keyword) ::
+  @spec products_update_benefits(
+          id :: String.t(),
+          body :: Polarex.ProductBenefitsUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.Product.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -4904,8 +5128,12 @@ defmodule Polarex.Public do
   Create a refund.
 
   **Scopes**: `refunds:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec refunds_create(Polarex.RefundCreate.t(), keyword) ::
+  @spec refunds_create(body :: Polarex.RefundCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Refund.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.RefundedAlready.t()}
   def refunds_create(body, opts \\ []) do
@@ -4948,7 +5176,7 @@ defmodule Polarex.Public do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec refunds_list(keyword) ::
+  @spec refunds_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceRefund.t()} | {:error, Polarex.HTTPValidationError.t()}
   def refunds_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -4991,10 +5219,16 @@ defmodule Polarex.Public do
   No initial order will be created and no confirmation email will be sent.
 
   **Scopes**: `subscriptions:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec subscriptions_create(
-          Polarex.SubscriptionCreateCustomer.t() | Polarex.SubscriptionCreateExternalCustomer.t(),
-          keyword
+          body ::
+            Polarex.SubscriptionCreateCustomer.t()
+            | Polarex.SubscriptionCreateExternalCustomer.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.Subscription.t()} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -5030,7 +5264,8 @@ defmodule Polarex.Public do
     * `organization_id`: Filter by organization ID.
 
   """
-  @spec subscriptions_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec subscriptions_export(opts :: keyword) ::
+          {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id])
@@ -5053,7 +5288,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `subscriptions:read` `subscriptions:write`
   """
-  @spec subscriptions_get(String.t(), keyword) ::
+  @spec subscriptions_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Subscription.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def subscriptions_get(id, opts \\ []) do
@@ -5095,7 +5330,7 @@ defmodule Polarex.Public do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec subscriptions_list(keyword) ::
+  @spec subscriptions_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceSubscription.t()} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -5136,7 +5371,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `subscriptions:write`
   """
-  @spec subscriptions_revoke(String.t(), keyword) ::
+  @spec subscriptions_revoke(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Subscription.t()}
           | {:error,
              Polarex.AlreadyCanceledSubscription.t()
@@ -5168,17 +5403,22 @@ defmodule Polarex.Public do
   Update a subscription.
 
   **Scopes**: `subscriptions:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec subscriptions_update(
-          String.t(),
-          Polarex.SubscriptionCancel.t()
-          | Polarex.SubscriptionRevoke.t()
-          | Polarex.SubscriptionUpdateBillingPeriod.t()
-          | Polarex.SubscriptionUpdateDiscount.t()
-          | Polarex.SubscriptionUpdateProduct.t()
-          | Polarex.SubscriptionUpdateSeats.t()
-          | Polarex.SubscriptionUpdateTrial.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.SubscriptionCancel.t()
+            | Polarex.SubscriptionRevoke.t()
+            | Polarex.SubscriptionUpdateBillingPeriod.t()
+            | Polarex.SubscriptionUpdateDiscount.t()
+            | Polarex.SubscriptionUpdateProduct.t()
+            | Polarex.SubscriptionUpdateSeats.t()
+            | Polarex.SubscriptionUpdateTrial.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.Subscription.t()}
           | {:error,
@@ -5225,9 +5465,15 @@ defmodule Polarex.Public do
   Create a webhook endpoint.
 
   **Scopes**: `webhooks:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec webhooks_create_webhook_endpoint(Polarex.WebhookEndpointCreate.t(), keyword) ::
-          {:ok, Polarex.WebhookEndpoint.t()} | {:error, Polarex.HTTPValidationError.t()}
+  @spec webhooks_create_webhook_endpoint(
+          body :: Polarex.WebhookEndpointCreate.t(),
+          opts :: keyword
+        ) :: {:ok, Polarex.WebhookEndpoint.t()} | {:error, Polarex.HTTPValidationError.t()}
   def webhooks_create_webhook_endpoint(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -5250,7 +5496,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `webhooks:write`
   """
-  @spec webhooks_delete_webhook_endpoint(String.t(), keyword) ::
+  @spec webhooks_delete_webhook_endpoint(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def webhooks_delete_webhook_endpoint(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -5276,7 +5522,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `webhooks:read` `webhooks:write`
   """
-  @spec webhooks_get_webhook_endpoint(String.t(), keyword) ::
+  @spec webhooks_get_webhook_endpoint(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.WebhookEndpoint.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def webhooks_get_webhook_endpoint(id, opts \\ []) do
@@ -5314,7 +5560,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec webhooks_list_webhook_deliveries(keyword) ::
+  @spec webhooks_list_webhook_deliveries(opts :: keyword) ::
           {:ok, Polarex.ListResourceWebhookDelivery.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def webhooks_list_webhook_deliveries(opts \\ []) do
@@ -5349,7 +5595,7 @@ defmodule Polarex.Public do
     * `limit`: Size of a page, defaults to 10. Maximum is 100.
 
   """
-  @spec webhooks_list_webhook_endpoints(keyword) ::
+  @spec webhooks_list_webhook_endpoints(opts :: keyword) ::
           {:ok, Polarex.ListResourceWebhookEndpoint.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def webhooks_list_webhook_endpoints(opts \\ []) do
@@ -5377,7 +5623,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `webhooks:write`
   """
-  @spec webhooks_redeliver_webhook_event(String.t(), keyword) ::
+  @spec webhooks_redeliver_webhook_event(id :: String.t(), opts :: keyword) ::
           {:ok, map} | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def webhooks_redeliver_webhook_event(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -5403,7 +5649,7 @@ defmodule Polarex.Public do
 
   **Scopes**: `webhooks:write`
   """
-  @spec webhooks_reset_webhook_endpoint_secret(String.t(), keyword) ::
+  @spec webhooks_reset_webhook_endpoint_secret(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.WebhookEndpoint.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def webhooks_reset_webhook_endpoint_secret(id, opts \\ []) do
@@ -5429,8 +5675,16 @@ defmodule Polarex.Public do
   Update a webhook endpoint.
 
   **Scopes**: `webhooks:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec webhooks_update_webhook_endpoint(String.t(), Polarex.WebhookEndpointUpdate.t(), keyword) ::
+  @spec webhooks_update_webhook_endpoint(
+          id :: String.t(),
+          body :: Polarex.WebhookEndpointUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.WebhookEndpoint.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def webhooks_update_webhook_endpoint(id, body, opts \\ []) do

@@ -9,7 +9,7 @@ defmodule Polarex.MeterCreate do
             | Polarex.PropertyAggregation.t()
             | Polarex.UniqueAggregation.t(),
           filter: Polarex.Filter.t(),
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t(),
           organization_id: String.t() | nil
         }
@@ -30,9 +30,9 @@ defmodule Polarex.MeterCreate do
            {Polarex.UniqueAggregation, :t}
          ]},
       filter: {Polarex.Filter, :t},
-      metadata: {Polarex.Metadata, :t},
-      name: {:string, :generic},
-      organization_id: {:union, [{:string, :generic}, :null]}
+      metadata: :map,
+      name: :string,
+      organization_id: {:union, [{:string, "uuid4"}, :null]}
     ]
   end
 end

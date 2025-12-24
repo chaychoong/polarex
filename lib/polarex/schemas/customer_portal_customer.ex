@@ -13,7 +13,7 @@ defmodule Polarex.CustomerPortalCustomer do
           id: String.t(),
           modified_at: DateTime.t() | nil,
           name: String.t() | nil,
-          oauth_accounts: Polarex.OauthAccounts.t(),
+          oauth_accounts: map,
           tax_id: [any] | nil
         }
 
@@ -38,15 +38,15 @@ defmodule Polarex.CustomerPortalCustomer do
   def __fields__(:t) do
     [
       billing_address: {:union, [{Polarex.Address, :t}, :null]},
-      billing_name: {:union, [{:string, :generic}, :null]},
-      created_at: {:string, :date_time},
-      default_payment_method_id: {:union, [{:string, :generic}, :null]},
-      email: {:string, :generic},
+      billing_name: {:union, [:string, :null]},
+      created_at: {:string, "date-time"},
+      default_payment_method_id: {:union, [{:string, "uuid4"}, :null]},
+      email: :string,
       email_verified: :boolean,
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:union, [{:string, :generic}, :null]},
-      oauth_accounts: {Polarex.OauthAccounts, :t},
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: {:union, [:string, :null]},
+      oauth_accounts: :map,
       tax_id: {:union, [[:unknown], :null]}
     ]
   end

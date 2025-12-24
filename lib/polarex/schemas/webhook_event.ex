@@ -33,12 +33,12 @@ defmodule Polarex.WebhookEvent do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
-      id: {:string, :generic},
+      created_at: {:string, "date-time"},
+      id: {:string, "uuid4"},
       is_archived: :boolean,
       last_http_code: {:union, [:integer, :null]},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      payload: {:union, [{:string, :generic}, :null]},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      payload: {:union, [:string, :null]},
       skipped: :boolean,
       succeeded: {:union, [:boolean, :null]},
       type:

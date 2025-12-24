@@ -17,9 +17,9 @@ defmodule Polarex.OwnerCreate do
 
   def __fields__(:t) do
     [
-      email: {:union, [{:string, :email}, :null]},
-      external_id: {:union, [{:string, :generic}, :null]},
-      name: {:union, [{:string, :generic}, :null]}
+      email: {:union, [{:string, "email"}, :null]},
+      external_id: {:union, [:string, :null]},
+      name: {:union, [:string, :null]}
     ]
   end
 end

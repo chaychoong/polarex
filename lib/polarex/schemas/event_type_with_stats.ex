@@ -37,16 +37,16 @@ defmodule Polarex.EventTypeWithStats do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
-      first_seen: {:string, :date_time},
-      id: {:string, :generic},
-      label: {:string, :generic},
-      label_property_selector: {:union, [{:string, :generic}, :null]},
-      last_seen: {:string, :date_time},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:string, :generic},
+      created_at: {:string, "date-time"},
+      first_seen: {:string, "date-time"},
+      id: {:string, "uuid4"},
+      label: :string,
+      label_property_selector: {:union, [:string, :null]},
+      last_seen: {:string, "date-time"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: :string,
       occurrences: :integer,
-      organization_id: {:string, :generic},
+      organization_id: {:string, "uuid4"},
       source: {:enum, ["system", "user"]}
     ]
   end

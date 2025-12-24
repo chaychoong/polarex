@@ -61,8 +61,8 @@ defmodule Polarex.WebhookEndpointUpdate do
            :null
          ]},
       format: {:union, [{:enum, ["raw", "discord", "slack"]}, :null]},
-      secret: {:union, [{:string, :generic}, :null]},
-      url: {:union, [{:string, :uri}, :null]}
+      secret: {:union, [:string, :null]},
+      url: {:union, [{:string, "uri"}, :null]}
     ]
   end
 end

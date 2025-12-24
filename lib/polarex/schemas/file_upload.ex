@@ -5,8 +5,8 @@ defmodule Polarex.FileUpload do
 
   @type t :: %__MODULE__{
           checksum_etag: String.t() | nil,
-          checksum_sha2_56_base6_4: String.t() | nil,
-          checksum_sha2_56_hex: String.t() | nil,
+          checksum_sha256_base64: String.t() | nil,
+          checksum_sha256_hex: String.t() | nil,
           id: String.t(),
           is_uploaded: boolean | nil,
           last_modified_at: DateTime.t() | nil,
@@ -24,8 +24,8 @@ defmodule Polarex.FileUpload do
 
   defstruct [
     :checksum_etag,
-    :checksum_sha2_56_base6_4,
-    :checksum_sha2_56_hex,
+    :checksum_sha256_base64,
+    :checksum_sha256_hex,
     :id,
     :is_uploaded,
     :last_modified_at,
@@ -47,22 +47,22 @@ defmodule Polarex.FileUpload do
 
   def __fields__(:t) do
     [
-      checksum_etag: {:union, [{:string, :generic}, :null]},
-      checksum_sha2_56_base6_4: {:union, [{:string, :generic}, :null]},
-      checksum_sha2_56_hex: {:union, [{:string, :generic}, :null]},
-      id: {:string, :generic},
+      checksum_etag: {:union, [:string, :null]},
+      checksum_sha256_base64: {:union, [:string, :null]},
+      checksum_sha256_hex: {:union, [:string, :null]},
+      id: {:string, "uuid4"},
       is_uploaded: :boolean,
-      last_modified_at: {:union, [{:string, :date_time}, :null]},
-      mime_type: {:string, :generic},
-      name: {:string, :generic},
-      organization_id: {:string, :generic},
-      path: {:string, :generic},
+      last_modified_at: {:union, [{:string, "date-time"}, :null]},
+      mime_type: :string,
+      name: :string,
+      organization_id: {:string, "uuid4"},
+      path: :string,
       service: {:enum, ["downloadable", "product_media", "organization_avatar"]},
       size: :integer,
-      size_readable: {:string, :generic},
-      storage_version: {:union, [{:string, :generic}, :null]},
+      size_readable: :string,
+      storage_version: {:union, [:string, :null]},
       upload: {Polarex.S3FileUploadMultipart, :t},
-      version: {:union, [{:string, :generic}, :null]}
+      version: {:union, [:string, :null]}
     ]
   end
 end

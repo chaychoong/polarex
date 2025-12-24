@@ -12,7 +12,7 @@ defmodule Polarex.Subscription do
           currency: String.t(),
           current_period_end: DateTime.t() | nil,
           current_period_start: DateTime.t(),
-          custom_field_data: Polarex.CustomFieldData.t() | nil,
+          custom_field_data: map | nil,
           customer: Polarex.SubscriptionCustomer.t(),
           customer_cancellation_comment: String.t() | nil,
           customer_cancellation_reason: String.t() | nil,
@@ -22,7 +22,7 @@ defmodule Polarex.Subscription do
           ended_at: DateTime.t() | nil,
           ends_at: DateTime.t() | nil,
           id: String.t(),
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           meters: [Polarex.SubscriptionMeter.t()],
           modified_at: DateTime.t() | nil,
           prices: [map],
@@ -79,15 +79,15 @@ defmodule Polarex.Subscription do
     [
       amount: :integer,
       cancel_at_period_end: :boolean,
-      canceled_at: {:union, [{:string, :date_time}, :null]},
-      checkout_id: {:union, [{:string, :generic}, :null]},
-      created_at: {:string, :date_time},
-      currency: {:string, :generic},
-      current_period_end: {:union, [{:string, :date_time}, :null]},
-      current_period_start: {:string, :date_time},
-      custom_field_data: {Polarex.CustomFieldData, :t},
+      canceled_at: {:union, [{:string, "date-time"}, :null]},
+      checkout_id: {:union, [{:string, "uuid4"}, :null]},
+      created_at: {:string, "date-time"},
+      currency: :string,
+      current_period_end: {:union, [{:string, "date-time"}, :null]},
+      current_period_start: {:string, "date-time"},
+      custom_field_data: :map,
       customer: {Polarex.SubscriptionCustomer, :t},
-      customer_cancellation_comment: {:union, [{:string, :generic}, :null]},
+      customer_cancellation_comment: {:union, [:string, :null]},
       customer_cancellation_reason:
         {:union,
          [
@@ -104,22 +104,22 @@ defmodule Polarex.Subscription do
             ]},
            :null
          ]},
-      customer_id: {:string, :generic},
+      customer_id: {:string, "uuid4"},
       discount: {:union, [:map, :null]},
-      discount_id: {:union, [{:string, :generic}, :null]},
-      ended_at: {:union, [{:string, :date_time}, :null]},
-      ends_at: {:union, [{:string, :date_time}, :null]},
-      id: {:string, :generic},
-      metadata: {Polarex.MetadataOutputType, :t},
+      discount_id: {:union, [{:string, "uuid4"}, :null]},
+      ended_at: {:union, [{:string, "date-time"}, :null]},
+      ends_at: {:union, [{:string, "date-time"}, :null]},
+      id: {:string, "uuid4"},
+      metadata: :map,
       meters: [{Polarex.SubscriptionMeter, :t}],
-      modified_at: {:union, [{:string, :date_time}, :null]},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
       prices: [:map],
       product: {Polarex.Product, :t},
-      product_id: {:string, :generic},
+      product_id: {:string, "uuid4"},
       recurring_interval: {:enum, ["day", "week", "month", "year"]},
       recurring_interval_count: :integer,
       seats: {:union, [:integer, :null]},
-      started_at: {:union, [{:string, :date_time}, :null]},
+      started_at: {:union, [{:string, "date-time"}, :null]},
       status:
         {:enum,
          [
@@ -131,8 +131,8 @@ defmodule Polarex.Subscription do
            "canceled",
            "unpaid"
          ]},
-      trial_end: {:union, [{:string, :date_time}, :null]},
-      trial_start: {:union, [{:string, :date_time}, :null]}
+      trial_end: {:union, [{:string, "date-time"}, :null]},
+      trial_start: {:union, [{:string, "date-time"}, :null]}
     ]
   end
 end

@@ -12,7 +12,7 @@ defmodule Polarex.CustomerSession do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_customer_session_introspect(keyword) ::
+  @spec customer_portal_customer_session_introspect(opts :: keyword) ::
           {:ok, Polarex.CustomerCustomerSession.t()} | :error
   def customer_portal_customer_session_introspect(opts \\ []) do
     client = opts[:client] || @default_client
@@ -57,15 +57,15 @@ defmodule Polarex.CustomerSession do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
+      created_at: {:string, "date-time"},
       customer: {Polarex.Customer, :t},
-      customer_id: {:string, :generic},
-      customer_portal_url: {:string, :generic},
-      expires_at: {:string, :date_time},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      return_url: {:union, [{:string, :generic}, :null]},
-      token: {:string, :generic}
+      customer_id: {:string, "uuid4"},
+      customer_portal_url: :string,
+      expires_at: {:string, "date-time"},
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      return_url: {:union, [:string, :null]},
+      token: :string
     ]
   end
 end

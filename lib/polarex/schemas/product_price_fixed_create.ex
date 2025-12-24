@@ -16,6 +16,6 @@ defmodule Polarex.ProductPriceFixedCreate do
   def __fields__(type \\ :t)
 
   def __fields__(:t) do
-    [amount_type: {:const, "fixed"}, price_amount: :integer, price_currency: {:string, :generic}]
+    [amount_type: {:const, "fixed"}, price_amount: :integer, price_currency: :string]
   end
 end

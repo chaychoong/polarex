@@ -11,8 +11,12 @@ defmodule Polarex.Refunds do
   Create a refund.
 
   **Scopes**: `refunds:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec refunds_create(Polarex.RefundCreate.t(), keyword) ::
+  @spec refunds_create(body :: Polarex.RefundCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Refund.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.RefundedAlready.t()}
   def refunds_create(body, opts \\ []) do
@@ -55,7 +59,7 @@ defmodule Polarex.Refunds do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec refunds_list(keyword) ::
+  @spec refunds_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceRefund.t()} | {:error, Polarex.HTTPValidationError.t()}
   def refunds_list(opts \\ []) do
     client = opts[:client] || @default_client

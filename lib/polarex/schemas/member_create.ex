@@ -19,10 +19,10 @@ defmodule Polarex.MemberCreate do
 
   def __fields__(:t) do
     [
-      customer_id: {:string, :generic},
-      email: {:string, :email},
-      external_id: {:union, [{:string, :generic}, :null]},
-      name: {:union, [{:string, :generic}, :null]},
+      customer_id: {:string, "uuid4"},
+      email: {:string, "email"},
+      external_id: {:union, [:string, :null]},
+      name: {:union, [:string, :null]},
       role: {:enum, ["owner", "billing_manager", "member"]}
     ]
   end

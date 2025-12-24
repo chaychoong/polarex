@@ -27,7 +27,7 @@ defmodule Polarex.Metrics do
     * `metrics`: List of metric slugs to focus on. When provided, only the queries needed for these metrics will be executed, improving performance. If not provided, all metrics are returned.
 
   """
-  @spec metrics_get(keyword) ::
+  @spec metrics_get(opts :: keyword) ::
           {:ok, Polarex.MetricsResponse.t()} | {:error, Polarex.HTTPValidationError.t()}
   def metrics_get(opts \\ []) do
     client = opts[:client] || @default_client
@@ -63,7 +63,7 @@ defmodule Polarex.Metrics do
 
   **Scopes**: `metrics:read`
   """
-  @spec metrics_limits(keyword) :: {:ok, Polarex.MetricsLimits.t()} | :error
+  @spec metrics_limits(opts :: keyword) :: {:ok, Polarex.MetricsLimits.t()} | :error
   def metrics_limits(opts \\ []) do
     client = opts[:client] || @default_client
 

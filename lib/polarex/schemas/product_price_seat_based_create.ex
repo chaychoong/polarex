@@ -18,7 +18,7 @@ defmodule Polarex.ProductPriceSeatBasedCreate do
   def __fields__(:t) do
     [
       amount_type: {:const, "seat_based"},
-      price_currency: {:string, :generic},
+      price_currency: :string,
       seat_tiers: {Polarex.ProductPriceSeatTiers, :t}
     ]
   end

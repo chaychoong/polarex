@@ -12,7 +12,7 @@ defmodule Polarex.DiscountUpdate do
           duration_in_months: integer | nil,
           ends_at: DateTime.t() | nil,
           max_redemptions: integer | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil,
           products: [String.t()] | nil,
           starts_at: DateTime.t() | nil,
@@ -43,16 +43,16 @@ defmodule Polarex.DiscountUpdate do
     [
       amount: {:union, [:integer, :null]},
       basis_points: {:union, [:integer, :null]},
-      code: {:union, [{:string, :generic}, :null]},
-      currency: {:union, [{:string, :generic}, :null]},
+      code: {:union, [:string, :null]},
+      currency: {:union, [:string, :null]},
       duration: {:union, [{:enum, ["once", "forever", "repeating"]}, :null]},
       duration_in_months: {:union, [:integer, :null]},
-      ends_at: {:union, [{:string, :date_time}, :null]},
+      ends_at: {:union, [{:string, "date-time"}, :null]},
       max_redemptions: {:union, [:integer, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]},
-      products: {:union, [[string: :generic], :null]},
-      starts_at: {:union, [{:string, :date_time}, :null]},
+      metadata: :map,
+      name: {:union, [:string, :null]},
+      products: {:union, [[string: "uuid4"], :null]},
+      starts_at: {:union, [{:string, "date-time"}, :null]},
       type: {:union, [{:enum, ["fixed", "percentage"]}, :null]}
     ]
   end

@@ -4,17 +4,17 @@ defmodule Polarex.EventMetadataInput do
   """
 
   @type t :: %__MODULE__{
-          cost: Polarex.CostMetadataInput.t() | nil,
-          llm: Polarex.LLMMetadata.t() | nil
+          _cost: Polarex.CostMetadataInput.t() | nil,
+          _llm: Polarex.LLMMetadata.t() | nil
         }
 
-  defstruct [:cost, :llm]
+  defstruct [:_cost, :_llm]
 
   @doc false
   @spec __fields__(atom) :: keyword
   def __fields__(type \\ :t)
 
   def __fields__(:t) do
-    [cost: {Polarex.CostMetadataInput, :t}, llm: {Polarex.LLMMetadata, :t}]
+    [_cost: {Polarex.CostMetadataInput, :t}, _llm: {Polarex.LLMMetadata, :t}]
   end
 end

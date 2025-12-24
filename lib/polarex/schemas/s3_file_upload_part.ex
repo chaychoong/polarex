@@ -4,17 +4,17 @@ defmodule Polarex.S3FileUploadPart do
   """
 
   @type t :: %__MODULE__{
-          checksum_sha2_56_base6_4: String.t() | nil,
+          checksum_sha256_base64: String.t() | nil,
           chunk_end: integer,
           chunk_start: integer,
           expires_at: DateTime.t(),
-          headers: Polarex.Headers.t() | nil,
+          headers: map | nil,
           number: integer,
           url: String.t()
         }
 
   defstruct [
-    :checksum_sha2_56_base6_4,
+    :checksum_sha256_base64,
     :chunk_end,
     :chunk_start,
     :expires_at,
@@ -29,13 +29,13 @@ defmodule Polarex.S3FileUploadPart do
 
   def __fields__(:t) do
     [
-      checksum_sha2_56_base6_4: {:union, [{:string, :generic}, :null]},
+      checksum_sha256_base64: {:union, [:string, :null]},
       chunk_end: :integer,
       chunk_start: :integer,
-      expires_at: {:string, :date_time},
-      headers: {Polarex.Headers, :t},
+      expires_at: {:string, "date-time"},
+      headers: :map,
       number: :integer,
-      url: {:string, :generic}
+      url: :string
     ]
   end
 end

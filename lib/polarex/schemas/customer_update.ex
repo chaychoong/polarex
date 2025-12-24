@@ -7,7 +7,7 @@ defmodule Polarex.CustomerUpdate do
           billing_address: Polarex.AddressInput.t() | nil,
           email: String.t() | nil,
           external_id: String.t() | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil,
           tax_id: [any] | nil
         }
@@ -21,10 +21,10 @@ defmodule Polarex.CustomerUpdate do
   def __fields__(:t) do
     [
       billing_address: {:union, [{Polarex.AddressInput, :t}, :null]},
-      email: {:union, [{:string, :email}, :null]},
-      external_id: {:union, [{:string, :generic}, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]},
+      email: {:union, [{:string, "email"}, :null]},
+      external_id: {:union, [:string, :null]},
+      metadata: :map,
+      name: {:union, [:string, :null]},
       tax_id: {:union, [[:unknown], :null]}
     ]
   end

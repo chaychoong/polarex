@@ -52,25 +52,25 @@ defmodule Polarex.Organization do
   def __fields__(:t) do
     [
       allow_customer_updates: :boolean,
-      avatar_url: {:union, [{:string, :generic}, :null]},
-      created_at: {:string, :date_time},
+      avatar_url: {:union, [:string, :null]},
+      created_at: {:string, "date-time"},
       customer_email_settings: {Polarex.OrganizationCustomerEmailSettings, :t},
       customer_portal_settings: {Polarex.OrganizationCustomerPortalSettings, :t},
-      details_submitted_at: {:union, [{:string, :date_time}, :null]},
-      email: {:union, [{:string, :generic}, :null]},
+      details_submitted_at: {:union, [{:string, "date-time"}, :null]},
+      email: {:union, [:string, :null]},
       feature_settings: {:union, [{Polarex.OrganizationFeatureSettings, :t}, :null]},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:string, :generic},
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: :string,
       notification_settings: {Polarex.OrganizationNotificationSettings, :t},
       proration_behavior: {:enum, ["invoice", "prorate"]},
-      slug: {:string, :generic},
+      slug: :string,
       socials: [{Polarex.OrganizationSocialLink, :t}],
       status:
         {:enum,
          ["created", "onboarding_started", "initial_review", "ongoing_review", "denied", "active"]},
       subscription_settings: {Polarex.OrganizationSubscriptionSettings, :t},
-      website: {:union, [{:string, :generic}, :null]}
+      website: {:union, [:string, :null]}
     ]
   end
 end

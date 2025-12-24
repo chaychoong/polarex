@@ -12,7 +12,7 @@ defmodule Polarex.Subscriptions do
 
   **Scopes**: `customer_portal:write`
   """
-  @spec customer_portal_subscriptions_cancel(String.t(), keyword) ::
+  @spec customer_portal_subscriptions_cancel(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error,
              Polarex.AlreadyCanceledSubscription.t()
@@ -43,7 +43,7 @@ defmodule Polarex.Subscriptions do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_subscriptions_get(String.t(), keyword) ::
+  @spec customer_portal_subscriptions_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_subscriptions_get(id, opts \\ []) do
@@ -80,7 +80,7 @@ defmodule Polarex.Subscriptions do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_subscriptions_list(keyword) ::
+  @spec customer_portal_subscriptions_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerSubscription.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_subscriptions_list(opts \\ []) do
@@ -107,13 +107,18 @@ defmodule Polarex.Subscriptions do
   Update a subscription of the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_subscriptions_update(
-          String.t(),
-          Polarex.CustomerSubscriptionCancel.t()
-          | Polarex.CustomerSubscriptionUpdateProduct.t()
-          | Polarex.CustomerSubscriptionUpdateSeats.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.CustomerSubscriptionCancel.t()
+            | Polarex.CustomerSubscriptionUpdateProduct.t()
+            | Polarex.CustomerSubscriptionUpdateSeats.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.CustomerSubscription.t()}
           | {:error,
@@ -159,10 +164,16 @@ defmodule Polarex.Subscriptions do
   No initial order will be created and no confirmation email will be sent.
 
   **Scopes**: `subscriptions:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec subscriptions_create(
-          Polarex.SubscriptionCreateCustomer.t() | Polarex.SubscriptionCreateExternalCustomer.t(),
-          keyword
+          body ::
+            Polarex.SubscriptionCreateCustomer.t()
+            | Polarex.SubscriptionCreateExternalCustomer.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.Subscription.t()} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -198,7 +209,8 @@ defmodule Polarex.Subscriptions do
     * `organization_id`: Filter by organization ID.
 
   """
-  @spec subscriptions_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec subscriptions_export(opts :: keyword) ::
+          {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id])
@@ -221,7 +233,7 @@ defmodule Polarex.Subscriptions do
 
   **Scopes**: `subscriptions:read` `subscriptions:write`
   """
-  @spec subscriptions_get(String.t(), keyword) ::
+  @spec subscriptions_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Subscription.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def subscriptions_get(id, opts \\ []) do
@@ -263,7 +275,7 @@ defmodule Polarex.Subscriptions do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec subscriptions_list(keyword) ::
+  @spec subscriptions_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceSubscription.t()} | {:error, Polarex.HTTPValidationError.t()}
   def subscriptions_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -304,7 +316,7 @@ defmodule Polarex.Subscriptions do
 
   **Scopes**: `subscriptions:write`
   """
-  @spec subscriptions_revoke(String.t(), keyword) ::
+  @spec subscriptions_revoke(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Subscription.t()}
           | {:error,
              Polarex.AlreadyCanceledSubscription.t()
@@ -336,17 +348,22 @@ defmodule Polarex.Subscriptions do
   Update a subscription.
 
   **Scopes**: `subscriptions:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec subscriptions_update(
-          String.t(),
-          Polarex.SubscriptionCancel.t()
-          | Polarex.SubscriptionRevoke.t()
-          | Polarex.SubscriptionUpdateBillingPeriod.t()
-          | Polarex.SubscriptionUpdateDiscount.t()
-          | Polarex.SubscriptionUpdateProduct.t()
-          | Polarex.SubscriptionUpdateSeats.t()
-          | Polarex.SubscriptionUpdateTrial.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.SubscriptionCancel.t()
+            | Polarex.SubscriptionRevoke.t()
+            | Polarex.SubscriptionUpdateBillingPeriod.t()
+            | Polarex.SubscriptionUpdateDiscount.t()
+            | Polarex.SubscriptionUpdateProduct.t()
+            | Polarex.SubscriptionUpdateSeats.t()
+            | Polarex.SubscriptionUpdateTrial.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.Subscription.t()}
           | {:error,

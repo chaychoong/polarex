@@ -7,7 +7,7 @@ defmodule Polarex.CustomerCreate do
           billing_address: Polarex.AddressInput.t() | nil,
           email: String.t(),
           external_id: String.t() | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil,
           organization_id: String.t() | nil,
           owner: Polarex.OwnerCreate.t() | nil,
@@ -32,11 +32,11 @@ defmodule Polarex.CustomerCreate do
   def __fields__(:t) do
     [
       billing_address: {:union, [{Polarex.AddressInput, :t}, :null]},
-      email: {:string, :email},
-      external_id: {:union, [{:string, :generic}, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]},
-      organization_id: {:union, [{:string, :generic}, :null]},
+      email: {:string, "email"},
+      external_id: {:union, [:string, :null]},
+      metadata: :map,
+      name: {:union, [:string, :null]},
+      organization_id: {:union, [{:string, "uuid4"}, :null]},
       owner: {:union, [{Polarex.OwnerCreate, :t}, :null]},
       tax_id: {:union, [[:unknown], :null]}
     ]

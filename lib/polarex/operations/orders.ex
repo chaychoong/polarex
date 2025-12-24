@@ -11,11 +11,15 @@ defmodule Polarex.Orders do
   Confirm a retry payment using a Stripe confirmation token.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_orders_confirm_retry_payment(
-          String.t(),
-          Polarex.CustomerOrderConfirmPayment.t(),
-          keyword
+          id :: String.t(),
+          body :: Polarex.CustomerOrderConfirmPayment.t(),
+          opts :: keyword
         ) ::
           {:ok, Polarex.CustomerOrderPaymentConfirmation.t()}
           | {:error,
@@ -49,7 +53,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_generate_invoice(String.t(), keyword) ::
+  @spec customer_portal_orders_generate_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, map}
           | {:error, Polarex.MissingInvoiceBillingDetails.t() | Polarex.NotPaidOrder.t()}
   def customer_portal_orders_generate_invoice(id, opts \\ []) do
@@ -75,7 +79,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_get(String.t(), keyword) ::
+  @spec customer_portal_orders_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrder.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_get(id, opts \\ []) do
@@ -102,7 +106,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_get_payment_status(String.t(), keyword) ::
+  @spec customer_portal_orders_get_payment_status(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrderPaymentStatus.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_get_payment_status(id, opts \\ []) do
@@ -129,7 +133,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_orders_invoice(String.t(), keyword) ::
+  @spec customer_portal_orders_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.CustomerOrderInvoice.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_invoice(id, opts \\ []) do
@@ -167,7 +171,7 @@ defmodule Polarex.Orders do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_orders_list(keyword) ::
+  @spec customer_portal_orders_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerOrder.t()} | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_orders_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -203,8 +207,16 @@ defmodule Polarex.Orders do
   Update an order for the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec customer_portal_orders_update(String.t(), Polarex.CustomerOrderUpdate.t(), keyword) ::
+  @spec customer_portal_orders_update(
+          id :: String.t(),
+          body :: Polarex.CustomerOrderUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.CustomerOrder.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def customer_portal_orders_update(id, body, opts \\ []) do
@@ -239,7 +251,7 @@ defmodule Polarex.Orders do
     * `product_id`: Filter by product ID.
 
   """
-  @spec orders_export(keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
+  @spec orders_export(opts :: keyword) :: {:ok, map} | {:error, Polarex.HTTPValidationError.t()}
   def orders_export(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:organization_id, :product_id])
@@ -262,7 +274,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_generate_invoice(String.t(), keyword) ::
+  @spec orders_generate_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, map}
           | {:error, Polarex.MissingInvoiceBillingDetails.t() | Polarex.NotPaidOrder.t()}
   def orders_generate_invoice(id, opts \\ []) do
@@ -288,7 +300,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_get(String.t(), keyword) ::
+  @spec orders_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Order.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_get(id, opts \\ []) do
@@ -315,7 +327,7 @@ defmodule Polarex.Orders do
 
   **Scopes**: `orders:read`
   """
-  @spec orders_invoice(String.t(), keyword) ::
+  @spec orders_invoice(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.OrderInvoice.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_invoice(id, opts \\ []) do
@@ -356,7 +368,7 @@ defmodule Polarex.Orders do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec orders_list(keyword) ::
+  @spec orders_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceOrder.t()} | {:error, Polarex.HTTPValidationError.t()}
   def orders_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -392,8 +404,12 @@ defmodule Polarex.Orders do
   Update an order.
 
   **Scopes**: `orders:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec orders_update(String.t(), Polarex.OrderUpdate.t(), keyword) ::
+  @spec orders_update(id :: String.t(), body :: Polarex.OrderUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Order.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def orders_update(id, body, opts \\ []) do

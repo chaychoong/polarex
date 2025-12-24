@@ -4,13 +4,13 @@ defmodule Polarex.S3FileCreatePart do
   """
 
   @type t :: %__MODULE__{
-          checksum_sha2_56_base6_4: String.t() | nil,
+          checksum_sha256_base64: String.t() | nil,
           chunk_end: integer,
           chunk_start: integer,
           number: integer
         }
 
-  defstruct [:checksum_sha2_56_base6_4, :chunk_end, :chunk_start, :number]
+  defstruct [:checksum_sha256_base64, :chunk_end, :chunk_start, :number]
 
   @doc false
   @spec __fields__(atom) :: keyword
@@ -18,7 +18,7 @@ defmodule Polarex.S3FileCreatePart do
 
   def __fields__(:t) do
     [
-      checksum_sha2_56_base6_4: {:union, [{:string, :generic}, :null]},
+      checksum_sha256_base64: {:union, [:string, :null]},
       chunk_end: :integer,
       chunk_start: :integer,
       number: :integer

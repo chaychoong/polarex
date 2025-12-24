@@ -68,18 +68,18 @@ defmodule Polarex.BenefitGrant do
            {Polarex.BenefitLicenseKeys, :t},
            {Polarex.BenefitMeterCredit, :t}
          ]},
-      benefit_id: {:string, :generic},
-      created_at: {:string, :date_time},
+      benefit_id: {:string, "uuid4"},
+      created_at: {:string, "date-time"},
       customer: {Polarex.Customer, :t},
-      customer_id: {:string, :generic},
+      customer_id: {:string, "uuid4"},
       error: {:union, [{Polarex.BenefitGrantError, :t}, :null]},
-      granted_at: {:union, [{:string, :date_time}, :null]},
-      id: {:string, :generic},
+      granted_at: {:union, [{:string, "date-time"}, :null]},
+      id: {:string, "uuid4"},
       is_granted: :boolean,
       is_revoked: :boolean,
-      member_id: {:union, [{:string, :generic}, :null]},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      order_id: {:union, [{:string, :generic}, :null]},
+      member_id: {:union, [{:string, "uuid4"}, :null]},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      order_id: {:union, [{:string, "uuid4"}, :null]},
       properties:
         {:union,
          [
@@ -89,8 +89,8 @@ defmodule Polarex.BenefitGrant do
            {Polarex.BenefitGrantGitHubRepositoryProperties, :t},
            {Polarex.BenefitGrantLicenseKeysProperties, :t}
          ]},
-      revoked_at: {:union, [{:string, :date_time}, :null]},
-      subscription_id: {:union, [{:string, :generic}, :null]}
+      revoked_at: {:union, [{:string, "date-time"}, :null]},
+      subscription_id: {:union, [{:string, "uuid4"}, :null]}
     ]
   end
 end

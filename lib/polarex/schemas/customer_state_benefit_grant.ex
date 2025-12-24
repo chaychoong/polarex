@@ -5,7 +5,7 @@ defmodule Polarex.CustomerStateBenefitGrant do
 
   @type t :: %__MODULE__{
           benefit_id: String.t(),
-          benefit_metadata: Polarex.MetadataOutputType.t(),
+          benefit_metadata: map,
           benefit_type: String.t(),
           created_at: DateTime.t(),
           granted_at: DateTime.t(),
@@ -36,8 +36,8 @@ defmodule Polarex.CustomerStateBenefitGrant do
 
   def __fields__(:t) do
     [
-      benefit_id: {:string, :generic},
-      benefit_metadata: {Polarex.MetadataOutputType, :t},
+      benefit_id: {:string, "uuid4"},
+      benefit_metadata: :map,
       benefit_type:
         {:enum,
          [
@@ -48,10 +48,10 @@ defmodule Polarex.CustomerStateBenefitGrant do
            "license_keys",
            "meter_credit"
          ]},
-      created_at: {:string, :date_time},
-      granted_at: {:string, :date_time},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
+      created_at: {:string, "date-time"},
+      granted_at: {:string, "date-time"},
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
       properties:
         {:union,
          [

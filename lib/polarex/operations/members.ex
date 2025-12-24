@@ -14,8 +14,12 @@ defmodule Polarex.Members do
   The authenticated user or organization must have access to the customer's organization.
 
   **Scopes**: `members:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec members_create_member(Polarex.MemberCreate.t(), keyword) ::
+  @spec members_create_member(body :: Polarex.MemberCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Member.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def members_create_member(body, opts \\ []) do
@@ -47,7 +51,7 @@ defmodule Polarex.Members do
 
   **Scopes**: `members:write`
   """
-  @spec members_delete_member(String.t(), keyword) ::
+  @spec members_delete_member(id :: String.t(), opts :: keyword) ::
           :ok | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def members_delete_member(id, opts \\ []) do
     client = opts[:client] || @default_client
@@ -81,7 +85,7 @@ defmodule Polarex.Members do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec members_list_members(keyword) ::
+  @spec members_list_members(opts :: keyword) ::
           {:ok, Polarex.ListResourceMember.t()} | {:error, Polarex.HTTPValidationError.t()}
   def members_list_members(opts \\ []) do
     client = opts[:client] || @default_client

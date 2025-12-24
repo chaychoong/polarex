@@ -16,7 +16,7 @@ defmodule Polarex.OrganizationSocialLink do
       platform:
         {:enum,
          ["x", "github", "facebook", "instagram", "youtube", "tiktok", "linkedin", "other"]},
-      url: {:string, :uri}
+      url: {:string, "uri"}
     ]
   end
 end

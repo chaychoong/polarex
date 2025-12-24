@@ -10,7 +10,7 @@ defmodule Polarex.DiscountPercentageRepeatDurationCreate do
           duration_in_months: integer,
           ends_at: DateTime.t() | nil,
           max_redemptions: integer | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t(),
           organization_id: String.t() | nil,
           products: [String.t()] | nil,
@@ -40,16 +40,16 @@ defmodule Polarex.DiscountPercentageRepeatDurationCreate do
   def __fields__(:t) do
     [
       basis_points: :integer,
-      code: {:union, [{:string, :generic}, :null]},
+      code: {:union, [:string, :null]},
       duration: {:enum, ["once", "forever", "repeating"]},
       duration_in_months: :integer,
-      ends_at: {:union, [{:string, :date_time}, :null]},
+      ends_at: {:union, [{:string, "date-time"}, :null]},
       max_redemptions: {:union, [:integer, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:string, :generic},
-      organization_id: {:union, [{:string, :generic}, :null]},
-      products: {:union, [[string: :generic], :null]},
-      starts_at: {:union, [{:string, :date_time}, :null]},
+      metadata: :map,
+      name: :string,
+      organization_id: {:union, [{:string, "uuid4"}, :null]},
+      products: {:union, [[string: "uuid4"], :null]},
+      starts_at: {:union, [{:string, "date-time"}, :null]},
       type: {:enum, ["fixed", "percentage"]}
     ]
   end

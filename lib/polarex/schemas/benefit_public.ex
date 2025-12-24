@@ -31,12 +31,12 @@ defmodule Polarex.BenefitPublic do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
+      created_at: {:string, "date-time"},
       deletable: :boolean,
-      description: {:string, :generic},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      organization_id: {:string, :generic},
+      description: :string,
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      organization_id: {:string, "uuid4"},
       selectable: :boolean,
       type:
         {:enum,

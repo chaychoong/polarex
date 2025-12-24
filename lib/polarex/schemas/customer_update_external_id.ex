@@ -6,7 +6,7 @@ defmodule Polarex.CustomerUpdateExternalID do
   @type t :: %__MODULE__{
           billing_address: Polarex.AddressInput.t() | nil,
           email: String.t() | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil,
           tax_id: [any] | nil
         }
@@ -20,9 +20,9 @@ defmodule Polarex.CustomerUpdateExternalID do
   def __fields__(:t) do
     [
       billing_address: {:union, [{Polarex.AddressInput, :t}, :null]},
-      email: {:union, [{:string, :email}, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]},
+      email: {:union, [{:string, "email"}, :null]},
+      metadata: :map,
+      name: {:union, [:string, :null]},
       tax_id: {:union, [[:unknown], :null]}
     ]
   end

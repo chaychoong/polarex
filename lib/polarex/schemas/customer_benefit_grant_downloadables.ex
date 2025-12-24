@@ -46,20 +46,20 @@ defmodule Polarex.CustomerBenefitGrantDownloadables do
   def __fields__(:t) do
     [
       benefit: {Polarex.BenefitDownloadablesSubscriber, :t},
-      benefit_id: {:string, :generic},
-      created_at: {:string, :date_time},
+      benefit_id: {:string, "uuid4"},
+      created_at: {:string, "date-time"},
       customer: {Polarex.CustomerPortalCustomer, :t},
-      customer_id: {:string, :generic},
-      granted_at: {:union, [{:string, :date_time}, :null]},
-      id: {:string, :generic},
+      customer_id: {:string, "uuid4"},
+      granted_at: {:union, [{:string, "date-time"}, :null]},
+      id: {:string, "uuid4"},
       is_granted: :boolean,
       is_revoked: :boolean,
-      member_id: {:union, [{:string, :generic}, :null]},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      order_id: {:union, [{:string, :generic}, :null]},
+      member_id: {:union, [{:string, "uuid4"}, :null]},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      order_id: {:union, [{:string, "uuid4"}, :null]},
       properties: {Polarex.BenefitGrantDownloadablesProperties, :t},
-      revoked_at: {:union, [{:string, :date_time}, :null]},
-      subscription_id: {:union, [{:string, :generic}, :null]}
+      revoked_at: {:union, [{:string, "date-time"}, :null]},
+      subscription_id: {:union, [{:string, "uuid4"}, :null]}
     ]
   end
 end

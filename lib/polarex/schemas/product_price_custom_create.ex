@@ -23,7 +23,7 @@ defmodule Polarex.ProductPriceCustomCreate do
       maximum_amount: {:union, [:integer, :null]},
       minimum_amount: {:union, [:integer, :null]},
       preset_amount: {:union, [:integer, :null]},
-      price_currency: {:string, :generic}
+      price_currency: :string
     ]
   end
 end

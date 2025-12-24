@@ -29,13 +29,13 @@ defmodule Polarex.EventCreateCustomer do
 
   def __fields__(:t) do
     [
-      customer_id: {:string, :generic},
-      external_id: {:union, [{:string, :generic}, :null]},
+      customer_id: {:string, "uuid4"},
+      external_id: {:union, [:string, :null]},
       metadata: {Polarex.EventMetadataInput, :t},
-      name: {:string, :generic},
-      organization_id: {:union, [{:string, :generic}, :null]},
-      parent_id: {:union, [{:string, :generic}, :null]},
-      timestamp: {:string, :date_time}
+      name: :string,
+      organization_id: {:union, [{:string, "uuid4"}, :null]},
+      parent_id: {:union, [:string, :null]},
+      timestamp: {:string, "date-time"}
     ]
   end
 end

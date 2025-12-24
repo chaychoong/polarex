@@ -8,7 +8,7 @@ defmodule Polarex.BenefitDownloadables do
           deletable: boolean,
           description: String.t(),
           id: String.t(),
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           modified_at: DateTime.t() | nil,
           organization_id: String.t(),
           properties: Polarex.BenefitDownloadablesProperties.t(),
@@ -35,13 +35,13 @@ defmodule Polarex.BenefitDownloadables do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
+      created_at: {:string, "date-time"},
       deletable: :boolean,
-      description: {:string, :generic},
-      id: {:string, :generic},
-      metadata: {Polarex.MetadataOutputType, :t},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      organization_id: {:string, :generic},
+      description: :string,
+      id: {:string, "uuid4"},
+      metadata: :map,
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      organization_id: {:string, "uuid4"},
       properties: {Polarex.BenefitDownloadablesProperties, :t},
       selectable: :boolean,
       type: {:const, "downloadables"}

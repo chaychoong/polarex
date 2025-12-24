@@ -11,7 +11,7 @@ defmodule Polarex.MeterUpdate do
             | nil,
           filter: Polarex.Filter.t() | nil,
           is_archived: boolean | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil
         }
 
@@ -33,8 +33,8 @@ defmodule Polarex.MeterUpdate do
          ]},
       filter: {:union, [{Polarex.Filter, :t}, :null]},
       is_archived: {:union, [:boolean, :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]}
+      metadata: :map,
+      name: {:union, [:string, :null]}
     ]
   end
 end

@@ -12,6 +12,6 @@ defmodule Polarex.BenefitGrantLicenseKeysProperties do
   def __fields__(type \\ :t)
 
   def __fields__(:t) do
-    [display_key: {:string, :generic}, license_key_id: {:string, :generic}]
+    [display_key: :string, license_key_id: :string]
   end
 end

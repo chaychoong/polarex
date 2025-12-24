@@ -31,12 +31,12 @@ defmodule Polarex.OrganizationDetails do
 
   def __fields__(:t) do
     [
-      about: {:string, :generic},
-      customer_acquisition: [string: :generic],
+      about: :string,
+      customer_acquisition: [:string],
       future_annual_revenue: :integer,
-      intended_use: {:string, :generic},
+      intended_use: :string,
       previous_annual_revenue: :integer,
-      product_description: {:string, :generic},
+      product_description: :string,
       switching: :boolean,
       switching_from:
         {:union, [{:enum, ["paddle", "lemon_squeezy", "gumroad", "stripe", "other"]}, :null]}

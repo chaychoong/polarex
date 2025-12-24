@@ -41,16 +41,16 @@ defmodule Polarex.UserEvent do
     [
       child_count: :integer,
       customer: {:union, [{Polarex.Customer, :t}, :null]},
-      customer_id: {:union, [{:string, :generic}, :null]},
-      external_customer_id: {:union, [{:string, :generic}, :null]},
-      id: {:string, :generic},
-      label: {:string, :generic},
+      customer_id: {:union, [{:string, "uuid4"}, :null]},
+      external_customer_id: {:union, [:string, :null]},
+      id: {:string, "uuid4"},
+      label: :string,
       metadata: {Polarex.EventMetadataOutput, :t},
-      name: {:string, :generic},
-      organization_id: {:string, :generic},
-      parent_id: {:union, [{:string, :generic}, :null]},
+      name: :string,
+      organization_id: {:string, "uuid4"},
+      parent_id: {:union, [{:string, "uuid4"}, :null]},
       source: {:const, "user"},
-      timestamp: {:string, :date_time}
+      timestamp: {:string, "date-time"}
     ]
   end
 end

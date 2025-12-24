@@ -12,10 +12,6 @@ defmodule Polarex.ValidationError do
   def __fields__(type \\ :t)
 
   def __fields__(:t) do
-    [
-      loc: [union: [:integer, string: :generic]],
-      msg: {:string, :generic},
-      type: {:string, :generic}
-    ]
+    [loc: [union: [:integer, :string]], msg: :string, type: :string]
   end
 end

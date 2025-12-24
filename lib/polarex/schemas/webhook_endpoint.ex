@@ -33,7 +33,7 @@ defmodule Polarex.WebhookEndpoint do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
+      created_at: {:string, "date-time"},
       enabled: :boolean,
       events: [
         enum: [
@@ -71,11 +71,11 @@ defmodule Polarex.WebhookEndpoint do
         ]
       ],
       format: {:enum, ["raw", "discord", "slack"]},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      organization_id: {:string, :generic},
-      secret: {:string, :generic},
-      url: {:string, :uri}
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      organization_id: {:string, "uuid4"},
+      secret: :string,
+      url: {:string, "uri"}
     ]
   end
 end

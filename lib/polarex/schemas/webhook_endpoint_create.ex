@@ -55,9 +55,9 @@ defmodule Polarex.WebhookEndpointCreate do
         ]
       ],
       format: {:enum, ["raw", "discord", "slack"]},
-      organization_id: {:union, [{:string, :generic}, :null]},
-      secret: {:union, [{:string, :generic}, :null]},
-      url: {:string, :uri}
+      organization_id: {:union, [{:string, "uuid4"}, :null]},
+      secret: {:union, [:string, :null]},
+      url: {:string, "uri"}
     ]
   end
 end

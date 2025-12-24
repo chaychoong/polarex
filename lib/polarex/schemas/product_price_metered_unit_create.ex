@@ -21,9 +21,9 @@ defmodule Polarex.ProductPriceMeteredUnitCreate do
     [
       amount_type: {:const, "metered_unit"},
       cap_amount: {:union, [:integer, :null]},
-      meter_id: {:string, :generic},
-      price_currency: {:string, :generic},
-      unit_amount: {:union, [:number, string: :generic]}
+      meter_id: {:string, "uuid4"},
+      price_currency: :string,
+      unit_amount: {:union, [:number, :string]}
     ]
   end
 end

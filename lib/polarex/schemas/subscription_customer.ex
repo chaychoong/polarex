@@ -12,7 +12,7 @@ defmodule Polarex.SubscriptionCustomer do
           email_verified: boolean,
           external_id: String.t() | nil,
           id: String.t(),
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           modified_at: DateTime.t() | nil,
           name: String.t() | nil,
           organization_id: String.t(),
@@ -41,18 +41,18 @@ defmodule Polarex.SubscriptionCustomer do
 
   def __fields__(:t) do
     [
-      avatar_url: {:string, :generic},
+      avatar_url: :string,
       billing_address: {:union, [{Polarex.Address, :t}, :null]},
-      created_at: {:string, :date_time},
-      deleted_at: {:union, [{:string, :date_time}, :null]},
-      email: {:string, :generic},
+      created_at: {:string, "date-time"},
+      deleted_at: {:union, [{:string, "date-time"}, :null]},
+      email: :string,
       email_verified: :boolean,
-      external_id: {:union, [{:string, :generic}, :null]},
-      id: {:string, :generic},
-      metadata: {Polarex.MetadataOutputType, :t},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:union, [{:string, :generic}, :null]},
-      organization_id: {:string, :generic},
+      external_id: {:union, [:string, :null]},
+      id: {:string, "uuid4"},
+      metadata: :map,
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: {:union, [:string, :null]},
+      organization_id: {:string, "uuid4"},
       tax_id: {:union, [[:unknown], :null]}
     ]
   end

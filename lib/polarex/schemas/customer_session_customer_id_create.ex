@@ -12,6 +12,6 @@ defmodule Polarex.CustomerSessionCustomerIDCreate do
   def __fields__(type \\ :t)
 
   def __fields__(:t) do
-    [customer_id: {:string, :generic}, return_url: {:union, [{:string, :uri}, :null]}]
+    [customer_id: {:string, "uuid4"}, return_url: {:union, [{:string, "uri"}, :null]}]
   end
 end

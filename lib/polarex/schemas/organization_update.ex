@@ -37,18 +37,18 @@ defmodule Polarex.OrganizationUpdate do
 
   def __fields__(:t) do
     [
-      avatar_url: {:union, [{:string, :uri}, :null]},
+      avatar_url: {:union, [{:string, "uri"}, :null]},
       customer_email_settings: {:union, [{Polarex.OrganizationCustomerEmailSettings, :t}, :null]},
       customer_portal_settings:
         {:union, [{Polarex.OrganizationCustomerPortalSettings, :t}, :null]},
       details: {:union, [{Polarex.OrganizationDetails, :t}, :null]},
-      email: {:union, [{:string, :email}, :null]},
+      email: {:union, [{:string, "email"}, :null]},
       feature_settings: {:union, [{Polarex.OrganizationFeatureSettings, :t}, :null]},
-      name: {:union, [{:string, :generic}, :null]},
+      name: {:union, [:string, :null]},
       notification_settings: {:union, [{Polarex.OrganizationNotificationSettings, :t}, :null]},
       socials: {:union, [[{Polarex.OrganizationSocialLink, :t}], :null]},
       subscription_settings: {:union, [{Polarex.OrganizationSubscriptionSettings, :t}, :null]},
-      website: {:union, [{:string, :uri}, :null]}
+      website: {:union, [{:string, "uri"}, :null]}
     ]
   end
 end

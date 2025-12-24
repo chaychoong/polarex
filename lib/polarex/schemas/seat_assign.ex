@@ -31,14 +31,14 @@ defmodule Polarex.SeatAssign do
 
   def __fields__(:t) do
     [
-      checkout_id: {:union, [{:string, :uuid}, :null]},
-      customer_id: {:union, [{:string, :uuid}, :null]},
-      email: {:union, [{:string, :email}, :null]},
-      external_customer_id: {:union, [{:string, :generic}, :null]},
+      checkout_id: {:union, [{:string, "uuid"}, :null]},
+      customer_id: {:union, [{:string, "uuid"}, :null]},
+      email: {:union, [{:string, "email"}, :null]},
+      external_customer_id: {:union, [:string, :null]},
       immediate_claim: :boolean,
       metadata: {:union, [:map, :null]},
-      order_id: {:union, [{:string, :uuid}, :null]},
-      subscription_id: {:union, [{:string, :uuid}, :null]}
+      order_id: {:union, [{:string, "uuid"}, :null]},
+      subscription_id: {:union, [{:string, "uuid"}, :null]}
     ]
   end
 end

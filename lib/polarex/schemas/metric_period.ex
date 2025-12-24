@@ -146,7 +146,7 @@ defmodule Polarex.MetricPeriod do
       renewed_subscriptions_revenue: {:union, [:integer, :number, :null]},
       revenue: {:union, [:integer, :number, :null]},
       succeeded_checkouts: {:union, [:integer, :number, :null]},
-      timestamp: {:string, :date_time}
+      timestamp: {:string, "date-time"}
     ]
   end
 end

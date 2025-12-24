@@ -11,10 +11,14 @@ defmodule Polarex.Products do
   Create a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec products_create(
-          Polarex.ProductCreateOneTime.t() | Polarex.ProductCreateRecurring.t(),
-          keyword
+          body :: Polarex.ProductCreateOneTime.t() | Polarex.ProductCreateRecurring.t(),
+          opts :: keyword
         ) :: {:ok, Polarex.Product.t()} | {:error, Polarex.HTTPValidationError.t()}
   def products_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -41,7 +45,7 @@ defmodule Polarex.Products do
 
   **Scopes**: `products:read` `products:write`
   """
-  @spec products_get(String.t(), keyword) ::
+  @spec products_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Product.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def products_get(id, opts \\ []) do
@@ -82,7 +86,7 @@ defmodule Polarex.Products do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec products_list(keyword) ::
+  @spec products_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceProduct.t()} | {:error, Polarex.HTTPValidationError.t()}
   def products_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -121,8 +125,12 @@ defmodule Polarex.Products do
   Update a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec products_update(String.t(), Polarex.ProductUpdate.t(), keyword) ::
+  @spec products_update(id :: String.t(), body :: Polarex.ProductUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Product.t()}
           | {:error,
              Polarex.HTTPValidationError.t()
@@ -154,8 +162,16 @@ defmodule Polarex.Products do
   Update benefits granted by a product.
 
   **Scopes**: `products:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec products_update_benefits(String.t(), Polarex.ProductBenefitsUpdate.t(), keyword) ::
+  @spec products_update_benefits(
+          id :: String.t(),
+          body :: Polarex.ProductBenefitsUpdate.t(),
+          opts :: keyword
+        ) ::
           {:ok, Polarex.Product.t()}
           | {:error,
              Polarex.HTTPValidationError.t()

@@ -7,7 +7,7 @@ defmodule Polarex.ProductCreateOneTime do
           attached_custom_fields: [Polarex.AttachedCustomFieldCreate.t()] | nil,
           description: String.t() | nil,
           medias: [String.t()] | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t(),
           organization_id: String.t() | nil,
           prices: [
@@ -40,11 +40,11 @@ defmodule Polarex.ProductCreateOneTime do
   def __fields__(:t) do
     [
       attached_custom_fields: [{Polarex.AttachedCustomFieldCreate, :t}],
-      description: {:union, [{:string, :generic}, :null]},
-      medias: {:union, [[string: :generic], :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:string, :generic},
-      organization_id: {:union, [{:string, :generic}, :null]},
+      description: {:union, [:string, :null]},
+      medias: {:union, [[string: "uuid4"], :null]},
+      metadata: :map,
+      name: :string,
+      organization_id: {:union, [{:string, "uuid4"}, :null]},
       prices: [
         union: [
           {Polarex.ProductPriceCustomCreate, :t},

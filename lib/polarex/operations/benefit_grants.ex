@@ -22,7 +22,7 @@ defmodule Polarex.BenefitGrants do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec benefit_grants_list(keyword) ::
+  @spec benefit_grants_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceBenefitGrant.t()} | {:error, Polarex.HTTPValidationError.t()}
   def benefit_grants_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -51,7 +51,7 @@ defmodule Polarex.BenefitGrants do
 
   **Scopes**: `customer_portal:read` `customer_portal:write`
   """
-  @spec customer_portal_benefit_grants_get(String.t(), keyword) ::
+  @spec customer_portal_benefit_grants_get(id :: String.t(), opts :: keyword) ::
           {:ok,
            Polarex.CustomerBenefitGrantCustom.t()
            | Polarex.CustomerBenefitGrantDiscord.t()
@@ -106,7 +106,7 @@ defmodule Polarex.BenefitGrants do
     * `sorting`: Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order.
 
   """
-  @spec customer_portal_benefit_grants_list(keyword) ::
+  @spec customer_portal_benefit_grants_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceCustomerBenefitGrant.t()}
           | {:error, Polarex.HTTPValidationError.t()}
   def customer_portal_benefit_grants_list(opts \\ []) do
@@ -145,16 +145,21 @@ defmodule Polarex.BenefitGrants do
   Update a benefit grant for the authenticated customer.
 
   **Scopes**: `customer_portal:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
   @spec customer_portal_benefit_grants_update(
-          String.t(),
-          Polarex.CustomerBenefitGrantCustomUpdate.t()
-          | Polarex.CustomerBenefitGrantDiscordUpdate.t()
-          | Polarex.CustomerBenefitGrantDownloadablesUpdate.t()
-          | Polarex.CustomerBenefitGrantGitHubRepositoryUpdate.t()
-          | Polarex.CustomerBenefitGrantLicenseKeysUpdate.t()
-          | Polarex.CustomerBenefitGrantMeterCreditUpdate.t(),
-          keyword
+          id :: String.t(),
+          body ::
+            Polarex.CustomerBenefitGrantCustomUpdate.t()
+            | Polarex.CustomerBenefitGrantDiscordUpdate.t()
+            | Polarex.CustomerBenefitGrantDownloadablesUpdate.t()
+            | Polarex.CustomerBenefitGrantGitHubRepositoryUpdate.t()
+            | Polarex.CustomerBenefitGrantLicenseKeysUpdate.t()
+            | Polarex.CustomerBenefitGrantMeterCreditUpdate.t(),
+          opts :: keyword
         ) ::
           {:ok,
            Polarex.CustomerBenefitGrantCustom.t()

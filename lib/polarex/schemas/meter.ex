@@ -12,7 +12,7 @@ defmodule Polarex.Meter do
           created_at: DateTime.t(),
           filter: Polarex.Filter.t(),
           id: String.t(),
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           modified_at: DateTime.t() | nil,
           name: String.t(),
           organization_id: String.t()
@@ -43,14 +43,14 @@ defmodule Polarex.Meter do
            {Polarex.PropertyAggregation, :t},
            {Polarex.UniqueAggregation, :t}
          ]},
-      archived_at: {:union, [{:string, :date_time}, :null]},
-      created_at: {:string, :date_time},
+      archived_at: {:union, [{:string, "date-time"}, :null]},
+      created_at: {:string, "date-time"},
       filter: {Polarex.Filter, :t},
-      id: {:string, :generic},
-      metadata: {Polarex.MetadataOutputType, :t},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:string, :generic},
-      organization_id: {:string, :generic}
+      id: {:string, "uuid4"},
+      metadata: :map,
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: :string,
+      organization_id: {:string, "uuid4"}
     ]
   end
 end

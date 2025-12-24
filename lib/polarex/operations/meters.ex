@@ -11,8 +11,12 @@ defmodule Polarex.Meters do
   Create a meter.
 
   **Scopes**: `meters:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec meters_create(Polarex.MeterCreate.t(), keyword) ::
+  @spec meters_create(body :: Polarex.MeterCreate.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()} | {:error, Polarex.HTTPValidationError.t()}
   def meters_create(body, opts \\ []) do
     client = opts[:client] || @default_client
@@ -36,7 +40,7 @@ defmodule Polarex.Meters do
 
   **Scopes**: `meters:read` `meters:write`
   """
-  @spec meters_get(String.t(), keyword) ::
+  @spec meters_get(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_get(id, opts \\ []) do
@@ -74,7 +78,7 @@ defmodule Polarex.Meters do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec meters_list(keyword) ::
+  @spec meters_list(opts :: keyword) ::
           {:ok, Polarex.ListResourceMeter.t()} | {:error, Polarex.HTTPValidationError.t()}
   def meters_list(opts \\ []) do
     client = opts[:client] || @default_client
@@ -119,7 +123,7 @@ defmodule Polarex.Meters do
     * `metadata`: Filter by metadata key-value pairs. It uses the `deepObject` style, e.g. `?metadata[key]=value`.
 
   """
-  @spec meters_quantities(String.t(), keyword) ::
+  @spec meters_quantities(id :: String.t(), opts :: keyword) ::
           {:ok, Polarex.MeterQuantities.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_quantities(id, opts \\ []) do
@@ -157,8 +161,12 @@ defmodule Polarex.Meters do
   Update a meter.
 
   **Scopes**: `meters:write`
+
+  ## Request Body
+
+  **Content Types**: `application/json`
   """
-  @spec meters_update(String.t(), Polarex.MeterUpdate.t(), keyword) ::
+  @spec meters_update(id :: String.t(), body :: Polarex.MeterUpdate.t(), opts :: keyword) ::
           {:ok, Polarex.Meter.t()}
           | {:error, Polarex.HTTPValidationError.t() | Polarex.ResourceNotFound.t()}
   def meters_update(id, body, opts \\ []) do

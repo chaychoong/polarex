@@ -8,7 +8,7 @@ defmodule Polarex.BenefitLicenseKeysSubscriber do
           deletable: boolean,
           description: String.t(),
           id: String.t(),
-          metadata: Polarex.MetadataOutputType.t(),
+          metadata: map,
           modified_at: DateTime.t() | nil,
           organization: Polarex.BenefitSubscriberOrganization.t(),
           organization_id: String.t(),
@@ -37,14 +37,14 @@ defmodule Polarex.BenefitLicenseKeysSubscriber do
 
   def __fields__(:t) do
     [
-      created_at: {:string, :date_time},
+      created_at: {:string, "date-time"},
       deletable: :boolean,
-      description: {:string, :generic},
-      id: {:string, :generic},
-      metadata: {Polarex.MetadataOutputType, :t},
-      modified_at: {:union, [{:string, :date_time}, :null]},
+      description: :string,
+      id: {:string, "uuid4"},
+      metadata: :map,
+      modified_at: {:union, [{:string, "date-time"}, :null]},
       organization: {Polarex.BenefitSubscriberOrganization, :t},
-      organization_id: {:string, :generic},
+      organization_id: {:string, "uuid4"},
       properties: {Polarex.BenefitLicenseKeysSubscriberProperties, :t},
       selectable: :boolean,
       type: {:const, "license_keys"}

@@ -8,7 +8,7 @@ defmodule Polarex.ProductUpdate do
           description: String.t() | nil,
           is_archived: boolean | nil,
           medias: [String.t()] | nil,
-          metadata: Polarex.Metadata.t() | nil,
+          metadata: map | nil,
           name: String.t() | nil,
           prices:
             [
@@ -47,11 +47,11 @@ defmodule Polarex.ProductUpdate do
   def __fields__(:t) do
     [
       attached_custom_fields: {:union, [[{Polarex.AttachedCustomFieldCreate, :t}], :null]},
-      description: {:union, [{:string, :generic}, :null]},
+      description: {:union, [:string, :null]},
       is_archived: {:union, [:boolean, :null]},
-      medias: {:union, [[string: :generic], :null]},
-      metadata: {Polarex.Metadata, :t},
-      name: {:union, [{:string, :generic}, :null]},
+      medias: {:union, [[string: "uuid4"], :null]},
+      metadata: :map,
+      name: {:union, [:string, :null]},
       prices:
         {:union,
          [

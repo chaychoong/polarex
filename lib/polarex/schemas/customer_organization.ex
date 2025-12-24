@@ -34,14 +34,14 @@ defmodule Polarex.CustomerOrganization do
   def __fields__(:t) do
     [
       allow_customer_updates: :boolean,
-      avatar_url: {:union, [{:string, :generic}, :null]},
-      created_at: {:string, :date_time},
+      avatar_url: {:union, [:string, :null]},
+      created_at: {:string, "date-time"},
       customer_portal_settings: {Polarex.OrganizationCustomerPortalSettings, :t},
-      id: {:string, :generic},
-      modified_at: {:union, [{:string, :date_time}, :null]},
-      name: {:string, :generic},
+      id: {:string, "uuid4"},
+      modified_at: {:union, [{:string, "date-time"}, :null]},
+      name: :string,
       proration_behavior: {:enum, ["invoice", "prorate"]},
-      slug: {:string, :generic}
+      slug: :string
     ]
   end
 end
