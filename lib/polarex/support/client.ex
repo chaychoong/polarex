@@ -82,6 +82,16 @@ defmodule Polarex.Support.Client do
     |> Req.put()
   end
 
+  defp execute_request(%{method: :delete} = opts) do
+    [
+      url: build_endpoint(opts.url),
+      retry: :transient
+    ]
+    |> Req.new()
+    |> add_headers(opts.opts)
+    |> Req.delete()
+  end
+
   # Helper function to build the URL
   defp build_endpoint(path) do
     host = Application.fetch_env!(:polarex, :server)
